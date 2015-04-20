@@ -1,0 +1,66 @@
+<article id="api-{{article.group}}-{{article.name}}-{{article.version}}" {{#if hidden}}class="hide"{{/if}} data-group="{{article.group}}" data-name="{{article.name}}" data-version="{{article.version}}">
+    <div class="pull-left">
+        <h1>{{article.groupTitle}}{{#if article.title}} - {{article.title}}{{/if}}</h1>
+    </div>
+  {{#if template.withCompare}}
+      <div class="pull-right">
+          <div class="btn-group">
+              <button class="version btn dropdown-toggle" data-toggle="dropdown">
+                  <strong>{{article.version}}</strong> <span class="caret"></span>
+              </button>
+              <ul class="versions dropdown-menu open-left">
+                  <li class="disabled"><a href="#">{{__ "compare changes to:"}}</a></li>
+                {{#each versions}}
+                    <li class="version"><a href="#">{{this}}</a></li>
+                {{/each}}
+              </ul>
+          </div>
+      </div>
+  {{/if}}
+    <div class="clearfix"></div>
+
+  {{#if article.description}}
+      <p>{{{nl2br article.description}}}</p>
+  {{/if}}
+
+    <pre class="prettyprint language-html" data-type="{{toLowerCase article.type}}"><code>{{article.url}}</code></pre>
+
+  {{#if article.permission}}
+      <p>
+        {{__ "Permission:"}}
+        {{#each article.permission}}
+          {{name}}
+          {{#if title}}
+              &nbsp;<a href="#" data-toggle="popover" data-placement="right" data-html="true" data-content="{{nl2br description}}" title="" data-original-title="{{title}}"><span class="label label-info"><i class="icon icon-info-sign icon-white"></i></span></a>
+            {{#unless @last}}, {{/unless}}
+          {{/if}}
+        {{/each}}
+      </p>
+  {{/if}}
+
+  {{#if_gt article.examples.length compare=0}}
+      <ul class="nav nav-tabs nav-tabs-examples">
+        {{#each article.examples}}
+            <li{{#if_eq @index compare=0}} class="active"{{/if_eq}}>
+                <a href="#examples-{{../id}}-{{@index}}">{{title}}</a>
+            </li>
+        {{/each}}
+      </ul>
+
+      <div class="tab-content">
+        {{#each article.examples}}
+            <div class="tab-pane{{#if_eq @index compare=0}} active{{/if_eq}}" id="examples-{{../id}}-{{@index}}">
+                <pre class="prettyprint language-{{type}}" data-type="{{type}}"><code>{{content}}</code></pre>
+            </div>
+        {{/each}}
+      </div>
+  {{/if_gt}}
+
+  {{subTemplate "article-param-block" params=article.header _hasType=_hasTypeInHeaderFields section="header"}}
+  {{subTemplate "article-param-block" params=article.parameter _hasType=_hasTypeInParameterFields section="parameter"}}
+  {{subTemplate "article-param-block" params=article.success _hasType=_hasTypeInSuccessFields section="success"}}
+  {{subTemplate "article-param-block" params=article.error _col1="Name" _hasType=_hasTypeInErrorFields section="error"}}
+
+  {{subTemplate "article-sample-request" article=article id=id}}
+
+</article>

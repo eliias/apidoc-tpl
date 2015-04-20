@@ -1,0 +1,91 @@
+<article id="api-{{article.group}}-{{article.name}}-{{article.version}}" {{#if hidden}}class="hide"{{/if}} data-group="{{article.group}}" data-name="{{article.name}}" data-version="{{article.version}}" data-compare-version="{{compare.version}}">
+    <div class="pull-left">
+        <h1>{{underscoreToSpace article.group}} - {{{showDiff article.title compare.title}}}</h1>
+    </div>
+
+    <div class="pull-right">
+        <div class="btn-group">
+            <button class="btn btn-success" disabled>
+                <strong>{{article.version}}</strong> {{__ "compared to"}}
+            </button>
+            <button class="version btn btn-danger dropdown-toggle" data-toggle="dropdown">
+                <strong>{{compare.version}}</strong> <span class="caret"></span>
+            </button>
+            <ul class="versions dropdown-menu open-left">
+                <li class="disabled"><a href="#">{{__ "compare changes to:"}}</a></li>
+                <li class="divider"></li>
+              {{#each versions}}
+                  <li class="version"><a href="#">{{this}}</a></li>
+              {{/each}}
+            </ul>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+
+  {{#if article.description}}
+      <p>{{{showDiff article.description compare.description "nl2br"}}}</p>
+  {{else}}
+    {{#if compare.description}}
+        <p>{{{showDiff "" compare.description "nl2br"}}}</p>
+    {{/if}}
+  {{/if}}
+
+    <pre class="prettyprint language-html" data-type="{{toLowerCase article.type}}"><code>{{{showDiff article.url compare.url}}}</code></pre>
+
+  {{subTemplate "article-compare-permission" article=article compare=compare}}
+
+    <ul class="nav nav-tabs nav-tabs-examples">
+      {{#each_compare_title article.examples compare.examples}}
+
+        {{#if typeSame}}
+            <li{{#if_eq index compare=0}} class="active"{{/if_eq}}>
+                <a href="#compare-examples-{{../../article.id}}-{{index}}">{{{showDiff source.title compare.title}}}</a>
+            </li>
+        {{/if}}
+
+        {{#if typeIns}}
+            <li{{#if_eq index compare=0}} class="active"{{/if_eq}}>
+                <a href="#compare-examples-{{../../article.id}}-{{index}}"><ins>{{{source.title}}}</ins></a>
+            </li>
+        {{/if}}
+
+        {{#if typeDel}}
+            <li{{#if_eq index compare=0}} class="active"{{/if_eq}}>
+                <a href="#compare-examples-{{../../article.id}}-{{index}}"><del>{{{compare.title}}}</del></a>
+            </li>
+        {{/if}}
+
+      {{/each_compare_title}}
+    </ul>
+
+    <div class="tab-content">
+      {{#each_compare_title article.examples compare.examples}}
+
+        {{#if typeSame}}
+            <div class="tab-pane{{#if_eq index compare=0}} active{{/if_eq}}" id="compare-examples-{{../../article.id}}-{{index}}">
+                <pre class="prettyprint language-{{source.type}}" data-type="{{source.type}}"><code>{{{showDiff source.content compare.content}}}</code></pre>
+            </div>
+        {{/if}}
+
+        {{#if typeIns}}
+            <div class="tab-pane{{#if_eq index compare=0}} active{{/if_eq}}" id="compare-examples-{{../../article.id}}-{{index}}">
+                <pre class="prettyprint language-{{source.type}}" data-type="{{source.type}}"><code>{{{source.content}}}</code></pre>
+            </div>
+        {{/if}}
+
+        {{#if typeDel}}
+            <div class="tab-pane{{#if_eq index compare=0}} active{{/if_eq}}" id="compare-examples-{{../../article.id}}-{{index}}">
+                <pre class="prettyprint language-{{source.type}}" data-type="{{compare.type}}"><code>{{{compare.content}}}</code></pre>
+            </div>
+        {{/if}}
+
+      {{/each_compare_title}}
+    </div>
+
+  {{subTemplate "article-compare-param-block" source=article.parameter compare=compare.parameter _hasType=_hasTypeInParameterFields section="parameter"}}
+  {{subTemplate "article-compare-param-block" source=article.success compare=compare.success _hasType=_hasTypeInSuccessFields section="success"}}
+  {{subTemplate "article-compare-param-block" source=article.error compare=compare.error _col1="Name" _hasType=_hasTypeInErrorFields section="error"}}
+
+  {{subTemplate "article-sample-request" article=article id=id}}
+
+</article>

@@ -1,0 +1,74 @@
+{{#if article.sampleRequest}}
+    <h2>{{__ "Send a Sample Request"}}</h2>
+    <form class="form-horizontal">
+        <fieldset>
+            <div class="control-group">
+                <div class="controls">
+                    <div class="input-prepend">>
+                        <span class="add-on">{{__ "url"}}</span>
+                        <input type="text" class="input-xxlarge sample-request-url" value="{{article.sampleRequest.0.url}}" />
+                    </div>
+                </div>
+            </div>
+
+          {{#if article.header}}
+            {{#if article.header.fields}}
+                <h3>{{__ "Headers"}}</h3>
+              {{#each article.header.fields}}
+                  <h4><input type="radio" data-sample-request-header-group-id="sample-request-header-{{@index}}" name="{{../id}}-sample-request-header" value="{{@index}}" class="sample-request-header sample-request-switch"{{#if_eq @index compare=0}} checked{{/if_eq}}> {{@key}}</h4>
+                  <div class="{{../id}}-sample-request-header-fields{{#if_gt @index compare=0}} hide{{/if_gt}}">
+                    {{#each this}}
+                        <div class="control-group">
+                            <label class="control-label" for="sample-request-header-field-{{field}}">{{field}}</label>
+                            <div class="controls">
+                                <div class="input-append">>
+                                    <input type="text" placeholder="{{field}}" class="input-xxlarge sample-request-header" data-sample-request-header-name="{{field}}" data-sample-request-header-group="sample-request-header-{{@../index}}">
+                                    <span class="add-on">{{type}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    {{/each}}
+                  </div>
+              {{/each}}
+            {{/if}}
+          {{/if}}
+
+          {{#if article.parameter}}
+            {{#if article.parameter.fields}}
+                <h3>{{__ "Parameters"}}</h3>
+              {{#each article.parameter.fields}}
+                  <h4><input type="radio" data-sample-request-param-group-id="sample-request-param-{{@index}}"  name="{{../id}}-sample-request-param" value="{{@index}}" class="sample-request-param sample-request-switch"{{#if_eq @index compare=0}} checked{{/if_eq}}> {{@key}}</h4>
+                  <div class="{{../id}}-sample-request-param-fields{{#if_gt @index compare=0}} hide{{/if_gt}}">
+                    {{#each this}}
+                        <div class="control-group">
+                            <label class="control-label" for="sample-request-param-field-{{field}}">{{field}}</label>
+                            <div class="controls">
+                                <div class="input-append">>
+                                    <input type="text" placeholder="{{field}}" class="input-xxlarge sample-request-param" data-sample-request-param-name="{{field}}" data-sample-request-param-group="sample-request-param-{{@../index}}">
+                                    <span class="add-on">{{type}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    {{/each}}
+                  </div>
+              {{/each}}
+            {{/if}}
+          {{/if}}
+
+            <div class="control-group">
+                <div class="controls">
+                    <button class="btn btn-default sample-request-send" data-sample-request-type="{{article.type}}">{{__ "Send"}}</button>
+                </div>
+            </div>
+
+            <div class="sample-request-response" style="display: none;">
+                <h3>
+                  {{__ "Response"}}
+                    <button class="btn btn-small btn-default pull-right sample-request-clear">X</button>
+                </h3>
+                <pre class="prettyprint language-json" data-type="json"><code class="sample-request-response-json"></code></pre>
+            </div>
+
+        </fieldset>
+    </form>
+{{/if}}

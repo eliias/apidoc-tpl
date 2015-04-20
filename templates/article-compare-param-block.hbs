@@ -1,0 +1,94 @@
+{{#if source}}
+  {{#each_compare_keys source.fields compare.fields}}
+    {{#if typeSame}}
+        <h2>{{__ source.key}}</h2>
+        <table>
+            <thead>
+            <tr>
+                <th style="width: 30%">{{#if _col1}}{{__ _col1}}{{else}}{{__ "Field"}}{{/if}}</th>
+              {{#if ../../_hasType}}<th style="width: 10%">{{__ "Type"}}</th>{{/if}}
+                <th style="width: {{#if _hasType}}60%{{else}}70%{{/if}}">{{__ "Description"}}</th>
+            </tr>
+            </thead>
+          {{subTemplate "article-compare-param-block-body" source=source.value compare=compare.value _hasType=../../_hasType}}
+        </table>
+    {{/if}}
+
+    {{#if typeIns}}
+        <h2><ins>{{__ source.key}}</ins></h2>
+        <table class="ins">
+            <thead>
+            <tr>
+                <th style="width: 30%">{{#if _col1}}{{__ _col1}}{{else}}{{__ "Field"}}{{/if}}</th>
+              {{#if ../../_hasType}}<th style="width: 10%">{{__ "Type"}}</th>{{/if}}
+                <th style="width: {{#if _hasType}}60%{{else}}70%{{/if}}">{{__ "Description"}}</th>
+            </tr>
+            </thead>
+          {{subTemplate "article-compare-param-block-body" source=source.value compare=source.value _hasType=../../_hasType}}
+        </table>
+    {{/if}}
+
+    {{#if typeDel}}
+        <h2><del>{{__ compare.key}}</del></h2>
+        <table class="del">
+            <thead>
+            <tr>
+                <th style="width: 30%">{{#if _col1}}{{__ _col1}}{{else}}{{__ "Field"}}{{/if}}</th>
+              {{#if ../../_hasType}}<th style="width: 10%">{{__ "Type"}}</th>{{/if}}
+                <th style="width: {{#if _hasType}}60%{{else}}70%{{/if}}">{{__ "Description"}}</th>
+            </tr>
+            </thead>
+          {{subTemplate "article-compare-param-block-body" source=compare.value compare=compare.value _hasType=../../_hasType}}
+        </table>
+    {{/if}}
+  {{/each_compare_keys}}
+
+  <ul class="nav nav-tabs nav-tabs-examples">
+    {{#each_compare_title source.examples compare.examples}}
+
+      {{#if typeSame}}
+          <li{{#if_eq index compare=0}} class="active"{{/if_eq}}>
+              <a href="#{{../../section}}-compare-examples-{{../../article.id}}-{{index}}">{{{showDiff source.title compare.title}}}</a>
+          </li>
+      {{/if}}
+
+      {{#if typeIns}}
+          <li{{#if_eq index compare=0}} class="active"{{/if_eq}}>
+              <a href="#{{../../section}}-compare-examples-{{../../article.id}}-{{index}}"><ins>{{{source.title}}}</ins></a>
+          </li>
+      {{/if}}
+
+      {{#if typeDel}}
+          <li{{#if_eq index compare=0}} class="active"{{/if_eq}}>
+              <a href="#{{../../section}}-compare-examples-{{../../article.id}}-{{index}}"><del>{{{compare.title}}}</del></a>
+          </li>
+      {{/if}}
+
+    {{/each_compare_title}}
+  </ul>
+
+  <div class="tab-content">
+    {{#each_compare_title source.examples compare.examples}}
+
+      {{#if typeSame}}
+          <div class="tab-pane{{#if_eq index compare=0}} active{{/if_eq}}" id="{{../../section}}-compare-examples-{{../../article.id}}-{{index}}">
+              <pre class="prettyprint language-{{source.type}}" data-type="{{source.type}}"><code>{{{showDiff source.content compare.content}}}</code></pre>
+          </div>
+      {{/if}}
+
+      {{#if typeIns}}
+          <div class="tab-pane{{#if_eq index compare=0}} active{{/if_eq}}" id="{{../../section}}-compare-examples-{{../../article.id}}-{{index}}">
+              <pre class="prettyprint language-{{source.type}}" data-type="{{source.type}}"><code>{{{source.content}}}</code></pre>
+          </div>
+      {{/if}}
+
+      {{#if typeDel}}
+          <div class="tab-pane{{#if_eq index compare=0}} active{{/if_eq}}" id="{{../../section}}-compare-examples-{{../../article.id}}-{{index}}">
+              <pre class="prettyprint language-{{source.type}}" data-type="{{compare.type}}"><code>{{{compare.content}}}</code></pre>
+          </div>
+      {{/if}}
+
+    {{/each_compare_title}}
+  </div>
+
+{{/if}}
