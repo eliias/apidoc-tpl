@@ -1,6 +1,8 @@
 import _ from 'lodash'
 import $ from 'jquery'
-import Handlebars from 'hbsfy/runtime'
+import Bootstrap from 'bootstrap'
+import sampleRequest from '../vendor/send-sample-request'
+import Handlebars from '../vendor/handlebars-helper'
 import templateHeader from '../templates/header.hbs'
 import templateFooter from '../templates/footer.hbs'
 import templateArticle from '../templates/article.hbs'
@@ -10,38 +12,25 @@ import templateProject from '../templates/project.hbs'
 import templateSections from '../templates/sections.hbs'
 import templateSidenav from '../templates/sidenav.hbs'
 
-function init(apiProject, apiData) {
+let apiProject
+let apiData
 
-  function loadGoogleFontCss() {
-    var host = document.location.hostname.toLowerCase();
-    var protocol = document.location.protocol.toLowerCase();
-    var googleCss = '//fonts.googleapis.com/css?family=Source+Code+Pro|Source+Sans+Pro:400,600,700';
-    if (host == 'localhost' || !host.length || protocol === 'file:') {
-      googleCss = 'http:' + googleCss;
-    }
-
-    $('<link/>', {
-      rel: 'stylesheet',
-      type: 'text/css',
-      href: googleCss
-    }).appendTo('head');
-  }
-
-  let api = apiData.api;
+function init() {
+  let api = apiData
 
   if (!apiProject.template) {
     apiProject.template = {}
   }
 
   if (apiProject.template.withCompare == null) {
-    apiProject.template.withCompare = true;
+    apiProject.template.withCompare = true
   }
 
   if (apiProject.template.withGenerator == null) {
-    apiProject.template.withGenerator = true;
+    apiProject.template.withGenerator = true
   }
 
-  $.ajaxSetup(apiProject.template.jQueryAjaxSetup);
+  $.ajaxSetup(apiProject.template.jQueryAjaxSetup)
 
   let apiByGroup = _.groupBy(api, function(entry) {
     return entry.group
@@ -54,7 +43,7 @@ function init(apiProject, apiData) {
     })
   })
 
-  let newList = [];
+  let newList = []
   let umlauts = {
     'ä': 'ae',
     'ü': 'ue',
@@ -64,14 +53,14 @@ function init(apiProject, apiData) {
 
   $.each(apiByGroupAndName, function(index, groupEntries) {
     // get titles from the first entry of group[].name[] (name has versioning)
-    var titles = []
+    let titles = []
     $.each(groupEntries, function(titleName, entries) {
-      var title = entries[0].title
+      let title = entries[0].title
       if (title !== undefined) {
         title.toLowerCase().replace(/[äöüß]/g, function($0) {
           return umlauts[$0]
-        });
-        titles.push(title + '#~#' + titleName); // '#~#' keep reference to titleName after sorting
+        })
+        titles.push(title + '#~#' + titleName) // '#~#' keep reference to titleName after sorting
       }
     })
     // sort by name ASC
@@ -84,15 +73,15 @@ function init(apiProject, apiData) {
 
     // add single elements to the new list
     titles.forEach(function(name) {
-      var values = name.split('#~#')
-      var key = values[1]
+      let values = name.split('#~#')
+      let key = values[1]
       groupEntries[key].forEach(function(entry) {
         newList.push(entry)
       })
     })
   })
 
-  api = newList;
+  api = newList
 
   let apiGroups = {}
   let apiGroupTitles = {}
@@ -118,7 +107,7 @@ function init(apiProject, apiData) {
   apiVersions.sort()
   apiVersions.reverse()
 
-  var nav = []
+  let nav = []
   apiGroups.forEach(function(group) {
     // Mainmenu entry
     nav.push({
@@ -128,7 +117,7 @@ function init(apiProject, apiData) {
     })
 
     // Submenu
-    var oldName = ''
+    let oldName = ''
     api.forEach(function(entry) {
       if (entry.group === group) {
         if (oldName !== entry.name) {
@@ -175,14 +164,14 @@ function init(apiProject, apiData) {
   }
 
   // render pagetitle
-  var title = apiProject.title ? apiProject.title : 'apiDoc: ' + apiProject.name + ' - ' + apiProject.version
+  let title = apiProject.title ? apiProject.title : 'apiDoc: ' + apiProject.name + ' - ' + apiProject.version
   $(document).attr('title', title)
 
   // remove loader
   $('#loader').remove()
 
   // render sidenav
-  var fields = {nav: nav}
+  let fields = {nav: nav}
   $('#sidenav').append(templateSidenav(fields))
 
   // render Generator
@@ -223,7 +212,7 @@ function init(apiProject, apiData) {
                 articleVersions[entry.group][entry.name] = []
               }
 
-              articleVersions[entry.group][entry.name].push(versionEntry.version);
+              articleVersions[entry.group][entry.name].push(versionEntry.version)
             }
           })
           fields = {
@@ -240,7 +229,7 @@ function init(apiProject, apiData) {
 
         // add prefix URL for endpoint
         if (apiProject.url) {
-          fields.article.url = apiProject.url + fields.article.url;
+          fields.article.url = apiProject.url + fields.article.url
         }
 
         addArticleSettings(fields, entry)
@@ -259,7 +248,7 @@ function init(apiProject, apiData) {
           group: entry.group,
           name: entry.name
         })
-        oldName = entry.name;
+        oldName = entry.name
       }
     })
 
@@ -274,19 +263,19 @@ function init(apiProject, apiData) {
   })
   $('#sections').append(content)
 
-  // Bootstrap Scrollspy
-  var $scrollSpy = $(this).scrollspy({
-    target: '#scrollingNav',
-    offset: 18
-  })
-  $('[data-spy="scroll"]').each(function() {
-    $scrollSpy('refresh');
-  })
-
+  /*
+   let $scrollSpy = $(this).scrollspy({
+   target: '#scrollingNav',
+   offset: 18
+   })
+   $('[data-spy="scroll"]').each(function() {
+   $scrollSpy('refresh')
+   })
+   */
   // Content-Scroll on Navigation click.
   $('.sidenav').find('a').on('click', function(e) {
     e.preventDefault()
-    var id = $(this).attr('href')
+    let id = $(this).attr('href')
     if ($(id).length > 0) {
       $('html,body').animate({scrollTop: parseInt($(id).offset().top)}, 400)
     }
@@ -309,7 +298,7 @@ function init(apiProject, apiData) {
    * @param {Object} fields
    */
   function _hasTypeInFields(fields) {
-    var result = false
+    let result = false
     $.each(fields, function(name) {
       if (_.any(fields[name], function(item) {
           return item.type
@@ -335,10 +324,10 @@ function init(apiProject, apiData) {
     $('#sidenav li').removeClass('is-new')
     if (apiProject.template.withCompare) {
       $('#sidenav li[data-version=\'' + version + '\']').each(function() {
-        var group = $(this).data('group')
-        var name = $(this).data('name')
-        var length = $('#sidenav li[data-group=\'' + group + '\'][data-name=\'' + name + '\']').length
-        var index = $('#sidenav li[data-group=\'' + group + '\'][data-name=\'' + name + '\']').index($(this))
+        let group = $(this).data('group')
+        let name = $(this).data('name')
+        let length = $('#sidenav li[data-group=\'' + group + '\'][data-name=\'' + name + '\']').length
+        let index = $('#sidenav li[data-group=\'' + group + '\'][data-name=\'' + name + '\']').index($(this))
         if (length === 1 || index === (length - 1)) {
           $(this).addClass('is-new')
         }
@@ -354,10 +343,10 @@ function init(apiProject, apiData) {
 
     // sample request switch
     $('.sample-request-switch').click(function(e) {
-      var name = '.' + $(this).attr('name') + '-fields'
+      let name = '.' + $(this).attr('name') + '-fields'
       $(name).addClass('hide')
       $(this).parent().next(name).removeClass('hide')
-    });
+    })
 
     // init modules
     sampleRequest.initDynamic()
@@ -394,10 +383,10 @@ function init(apiProject, apiData) {
           $('#sidenav li.nav-header[data-group=\'' + group + '\']').removeClass('hide')
         }
       }
-    });
+    })
 
     initDynamic()
-  });
+  })
 
   $('#compareAllWithPredecessor').on('click', changeAllVersionCompareTo)
 
@@ -405,7 +394,7 @@ function init(apiProject, apiData) {
 
   // compare url-parameter
   $.urlParam = function(name) {
-    var results = new RegExp('[\\?&amp;]' + name + '=([^&amp;#]*)').exec(window.location.href)
+    let results = new RegExp('[\\?&amp;]' + name + '=([^&amp;#]*)').exec(window.location.href)
     return (results && results[1]) ? results[1] : null
   }
 
@@ -414,7 +403,7 @@ function init(apiProject, apiData) {
     $('#compareAllWithPredecessor').trigger('click')
 
     if (window.location.hash) {
-      var id = window.location.hash
+      let id = window.location.hash
       $('html,body').animate({scrollTop: parseInt($(id).offset().top) - 18}, 0)
     }
   }
@@ -425,17 +414,17 @@ function init(apiProject, apiData) {
   function changeVersionCompareTo(e) {
     e.preventDefault()
 
-    var $root = $(this).parents('article')
-    var selectedVersion = $(this).html()
-    var $button = $root.find('.version')
-    var currentVersion = $button.find('strong').html()
+    let $root = $(this).parents('article')
+    let selectedVersion = $(this).html()
+    let $button = $root.find('.version')
+    let currentVersion = $button.find('strong').html()
     $button.find('strong').html(selectedVersion)
 
-    var group = $root.data('group')
-    var name = $root.data('name')
-    var version = $root.data('version')
+    let group = $root.data('group')
+    let name = $root.data('name')
+    let version = $root.data('version')
 
-    var compareVersion = $root.data('compare-version')
+    let compareVersion = $root.data('compare-version')
 
     if (compareVersion === selectedVersion) {
       return
@@ -449,10 +438,8 @@ function init(apiProject, apiData) {
       // the version of the entry is set to the highest version (reset)
       resetArticle(group, name, version)
     } else {
-      var $compareToArticle = $('article[data-group=\'' + group + '\'][data-name=\'' + name + '\'][data-version=\'' + selectedVersion + '\']')
-
-      var sourceEntry = {}
-      var compareEntry = {}
+      let sourceEntry = {}
+      let compareEntry = {}
       $.each(apiByGroupAndName[group][name], function(index, entry) {
         if (entry.version === version) {
           sourceEntry = entry
@@ -462,7 +449,7 @@ function init(apiProject, apiData) {
         }
       })
 
-      var fields = {
+      let fields = {
         article: sourceEntry,
         compare: compareEntry,
         versions: articleVersions[group][name]
@@ -475,7 +462,7 @@ function init(apiProject, apiData) {
       fields.compare.id = fields.compare.group + '-' + fields.compare.name + '-' + fields.compare.version
       fields.compare.id = fields.compare.id.replace(/\./g, '_')
 
-      var entry = sourceEntry
+      let entry = sourceEntry
       if (entry.parameter && entry.parameter.fields) {
         fields._hasTypeInParameterFields = _hasTypeInFields(entry.parameter.fields)
       }
@@ -492,7 +479,7 @@ function init(apiProject, apiData) {
         fields._hasTypeInInfoFields = _hasTypeInFields(entry.info.fields)
       }
 
-      let entry = compareEntry
+      entry = compareEntry
       if (fields._hasTypeInParameterFields !== true && entry.parameter && entry.parameter.fields) {
         fields._hasTypeInParameterFields = _hasTypeInFields(entry.parameter.fields)
       }
@@ -517,7 +504,7 @@ function init(apiProject, apiData) {
       $content.find('.versions li.version a').on('click', changeVersionCompareTo)
 
       // select navigation
-      $('#sidenav li[data-group=\'' + group + '\'][data-name=\'' + name + '\'][data-version=\'' + currentVersion + '\']').addClass('has-modifications')
+      $('#sidenav li[data-group="' + group + '"][data-name="' + name + '"][data-version="' + currentVersion + '"]').addClass('has-modifications')
 
       $root.remove()
     }
@@ -583,7 +570,7 @@ function init(apiProject, apiData) {
       if (currentEntry.version === version) {
         entry = currentEntry
       }
-    });
+    })
     let fields = {
       article: entry,
       versions: articleVersions[group][name]
@@ -595,16 +582,15 @@ function init(apiProject, apiData) {
   }
 
   function resetArticle(group, name, version) {
-    let $root = $('article[data-group=\'' + group + '\'][data-name=\'' + name + '\']:visible')
+    let $root = $('article[data-group="' + group + '"][data-name="' + name + '"]:visible')
     let content = renderArticle(group, name, version)
 
     $root.after(content)
     let $content = $root.next()
 
-    // Event on.click muss neu zugewiesen werden (sollte eigentlich mit on automatisch funktionieren... sollte)
     $content.find('.versions li.version a').on('click', changeVersionCompareTo)
 
-    $('#sidenav li[data-group=\'' + group + '\'][data-name=\'' + name + '\'][data-version=\'' + version + '\']').removeClass('has-modifications')
+    $('#sidenav li[data-group="' + group + '"][data-name="' + name + '"][data-version="' + version + '"]').removeClass('has-modifications')
 
     $root.remove()
   }
@@ -647,9 +633,11 @@ function init(apiProject, apiData) {
 
 }
 
-require([
-  './api_project',
-  './api_data'
-], function(project, data) {
-  init(project, data)
-})
+$.when(
+  $.getJSON('../api_project.json', function(project) {
+    apiProject = project
+  }),
+  $.getJSON('../api_data.json', function(data) {
+    apiData = data
+  })
+).then(init)

@@ -24,6 +24,8 @@
     "babelify": "^6.0.2",
     "bootstrap": "^3.3.4",
     "browserify": "^9.0.8",
+    "browserify-shim": "^3.8.5",
+    "diff_match_patch": "^0.1.1",
     "grunt": "^0.4.5",
     "grunt-browserify": "^3.7.0",
     "grunt-cli": "^0.1.13",
@@ -39,20 +41,21 @@
     "less-plugin-clean-css": "^1.5.0",
     "load-grunt-tasks": "^3.1.0",
     "lodash": "^3.7.0",
-    "promethify": "^0.1.0",
     "time-grunt": "^1.1.1",
     "uglifyify": "^3.0.1"
   },
   "browserify": {
     "transform": [
-      [
-        "hbsfy",
-        {
-          "precompilerOptions": {
-            "knownHelpersOnly": false
-          }
-        }
-      ]
+      "browserify-shim",
+      "hbsfy"
     ]
+  },
+  "browser": {
+    "bootstrap": "./node_modules/bootstrap/dist/js/bootstrap.js"
+  },
+  "browserify-shim": {
+    "bootstrap": {
+      "depends": ["jquery:jQuery"]
+    }
   }
 }

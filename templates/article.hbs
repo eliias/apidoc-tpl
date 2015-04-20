@@ -31,7 +31,7 @@
         {{#each article.permission}}
           {{name}}
           {{#if title}}
-              &nbsp;<a href="#" data-toggle="popover" data-placement="right" data-html="true" data-content="{{nl2br description}}" title="" data-original-title="{{title}}"><span class="label label-info"><i class="icon icon-info-sign icon-white"></i></span></a>
+              &nbsp;<a href="#" data-toggle="popover" data-placement="right" data-html="true" data-content="{{nl2br description}}" title="" data-original-title="{{title}}"><span class="label label-info"><span class="glyphicon glyphicon-info-sign"></span></span></a>
             {{#unless @last}}, {{/unless}}
           {{/if}}
         {{/each}}

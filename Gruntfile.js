@@ -22,16 +22,20 @@ module.exports = function(grunt) {
       all: {
         files: [
           {
+            src: '<%= config.src %>/fonts/*',
+            dest: '<%= config.dist %>/'
+          },
+          {
             src: '<%= config.src %>/images/*',
-            dest: '<%= config.dist %>/images/'
+            dest: '<%= config.dist %>/'
           },
           {
             src: '<%= config.src %>/locales/*',
-            dest: '<%= config.dist %>/locales/'
+            dest: '<%= config.dist %>/'
           },
           {
             src: '<%= config.src %>/vendor/*',
-            dest: '<%= config.dist %>/vendor/'
+            dest: '<%= config.dist %>/'
           },
           {
             src: '<%= config.src %>/index.html',
@@ -47,7 +51,7 @@ module.exports = function(grunt) {
         tasks: ['jshint']
       },
       styles: {
-        files: ['<%= config.src %>/styles/**/*.less'],
+        files: ['<%= config.src %>/styles/**'],
         tasks: ['less:watch']
       },
       static: {

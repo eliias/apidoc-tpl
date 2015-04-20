@@ -1,3 +1,6 @@
+# system
+.DS_Store
+
 # IDE
 .idea
 
@@ -5,4 +8,6 @@
 node_modules
 
 # template
+apiData.js
+apiProject.js
 dist
