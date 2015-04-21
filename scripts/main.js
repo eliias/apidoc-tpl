@@ -638,10 +638,10 @@ function init() {
 }
 
 $.when(
-  $.getJSON('../api_project.json', function(project) {
+  $.getJSON('api_project.json', function(project) {
     apiProject = project
   }),
-  $.getJSON('../api_data.json', function(data) {
+  $.getJSON('api_data.json', function(data) {
     apiData = data
   })
 ).then(init)
