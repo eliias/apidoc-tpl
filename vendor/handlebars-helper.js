@@ -56,6 +56,7 @@ Handlebars.registerHelper('cl', function(obj) {
  * @param string text
  */
 Handlebars.registerHelper('underscoreToSpace', function(text) {
+  text = text || ''
   return text.replace(/(_+)/g, ' ')
 })
 
