@@ -22,19 +22,23 @@ module.exports = function(grunt) {
       all: {
         files: [
           {
-            src: '<%= config.src %>/fonts/*',
+            expand: true,
+            src: ['<%= config.src %>/fonts/**'],
             dest: '<%= config.dist %>/'
           },
           {
-            src: '<%= config.src %>/images/*',
+            expand: true,
+            src: ['<%= config.src %>/images/**'],
             dest: '<%= config.dist %>/'
           },
           {
-            src: '<%= config.src %>/locales/*',
+            expand: true,
+            src: ['<%= config.src %>/locales/**'],
             dest: '<%= config.dist %>/'
           },
           {
-            src: '<%= config.src %>/vendor/*',
+            expand: true,
+            src: ['<%= config.src %>/vendor/**'],
             dest: '<%= config.dist %>/'
           },
           {
@@ -159,10 +163,10 @@ module.exports = function(grunt) {
 
   grunt.registerTask('default', [
     'clean',
+    'copy',
+    'less:all',
     'jshint',
     'browserify:all',
-    'less:all',
-    'copy'
   ])
 
 }
