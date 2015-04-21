@@ -1,0 +1,19 @@
+{{#if_gt article.examples.length compare=0}}
+    <ul class="nav nav-tabs nav-tabs-examples">
+      {{#each article.examples}}
+          <li{{#if_eq @index compare=0}} class="active"{{/if_eq}}>
+              <span class="badge">
+                  <a href="#examples-{{../id}}-{{@index}}">{{title}}</a>
+              </span>
+          </li>
+      {{/each}}
+    </ul>
+
+    <div class="tab-content">
+      {{#each article.examples}}
+          <div class="tab-pane{{#if_eq @index compare=0}} active{{/if_eq}}" id="examples-{{../id}}-{{@index}}">
+              <pre><code class="language-javascript">{{content}}</code></pre>
+          </div>
+      {{/each}}
+    </div>
+{{/if_gt}}

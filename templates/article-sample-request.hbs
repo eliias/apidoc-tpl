@@ -1,13 +1,11 @@
 {{#if article.sampleRequest}}
-    <h2>{{__ "Send a Sample Request"}}</h2>
-    <form class="form-horizontal">
+    <h3>{{__ "Send a Sample Request"}}</h3>
+    <form>
         <fieldset>
-            <div class="control-group">
-                <div class="controls">
-                    <div class="input-prepend">>
-                        <span class="add-on">{{__ "url"}}</span>
-                        <input type="text" class="input-xxlarge sample-request-url" value="{{article.sampleRequest.0.url}}" />
-                    </div>
+            <div class="form-group">
+                <div class="input-group">
+                    <div class="input-group-addon">{{__ "URL"}}</div>
+                    <input type="text" class="form-control" value="{{article.sampleRequest.0.url}}">
                 </div>
             </div>
 
@@ -15,15 +13,24 @@
             {{#if article.header.fields}}
                 <h3>{{__ "Headers"}}</h3>
               {{#each article.header.fields}}
-                  <h4><input type="radio" data-sample-request-header-group-id="sample-request-header-{{@index}}" name="{{../id}}-sample-request-header" value="{{@index}}" class="sample-request-header sample-request-switch"{{#if_eq @index compare=0}} checked{{/if_eq}}> {{@key}}</h4>
+                  <h4><input type="radio"
+                             data-sample-request-header-group-id="sample-request-header-{{@index}}"
+                             name="{{../id}}-sample-request-header"
+                             value="{{@index}}"
+                             class="sample-request-header sample-request-switch"{{#if_eq @index compare=0}}
+                             checked{{/if_eq}}> {{@key}}</h4>
+
                   <div class="{{../id}}-sample-request-header-fields{{#if_gt @index compare=0}} hide{{/if_gt}}">
                     {{#each this}}
-                        <div class="control-group">
+                        <div class="form-group">
                             <label class="control-label" for="sample-request-header-field-{{field}}">{{field}}</label>
-                            <div class="controls">
-                                <div class="input-append">>
-                                    <input type="text" placeholder="{{field}}" class="input-xxlarge sample-request-header" data-sample-request-header-name="{{field}}" data-sample-request-header-group="sample-request-header-{{@../index}}">
-                                    <span class="add-on">{{type}}</span>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <input type="text" placeholder="{{field}}"
+                                           class="sample-request-header form-control"
+                                           data-sample-request-header-name="{{field}}"
+                                           data-sample-request-header-group="sample-request-header-{{@../index}}">
+                                    <div class="input-group-addon">{{type}}</div>
                                 </div>
                             </div>
                         </div>
@@ -37,15 +44,24 @@
             {{#if article.parameter.fields}}
                 <h3>{{__ "Parameters"}}</h3>
               {{#each article.parameter.fields}}
-                  <h4><input type="radio" data-sample-request-param-group-id="sample-request-param-{{@index}}"  name="{{../id}}-sample-request-param" value="{{@index}}" class="sample-request-param sample-request-switch"{{#if_eq @index compare=0}} checked{{/if_eq}}> {{@key}}</h4>
+                  <h4><input type="radio"
+                             data-sample-request-param-group-id="sample-request-param-{{@index}}"
+                             name="{{../id}}-sample-request-param"
+                             value="{{@index}}"
+                             class="sample-request-param sample-request-switch"{{#if_eq @index compare=0}}
+                             checked{{/if_eq}}> {{@key}}</h4>
+
                   <div class="{{../id}}-sample-request-param-fields{{#if_gt @index compare=0}} hide{{/if_gt}}">
                     {{#each this}}
                         <div class="control-group">
                             <label class="control-label" for="sample-request-param-field-{{field}}">{{field}}</label>
-                            <div class="controls">
-                                <div class="input-append">>
-                                    <input type="text" placeholder="{{field}}" class="input-xxlarge sample-request-param" data-sample-request-param-name="{{field}}" data-sample-request-param-group="sample-request-param-{{@../index}}">
-                                    <span class="add-on">{{type}}</span>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <input type="text" placeholder="{{field}}"
+                                           class="form-control sample-request-param"
+                                           data-sample-request-param-name="{{field}}"
+                                           data-sample-request-param-group="sample-request-param-{{@../index}}">
+                                    <div class="input-group-addon">{{type}}</div>
                                 </div>
                             </div>
                         </div>
@@ -64,9 +80,9 @@
             <div class="sample-request-response" style="display: none;">
                 <h3>
                   {{__ "Response"}}
-                    <button class="btn btn-small btn-default pull-right sample-request-clear">X</button>
+                    <button class="btn btn-small btn-default pull-right sample-request-clear">&times</button>
                 </h3>
-                <pre class="prettyprint language-json" data-type="json"><code class="sample-request-response-json"></code></pre>
+                <pre><code class="language-json sample-request-response-json"></code></pre>
             </div>
 
         </fieldset>

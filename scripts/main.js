@@ -6,6 +6,7 @@ import Handlebars from '../vendor/handlebars-helper'
 import templateHeader from '../templates/header.hbs'
 import templateFooter from '../templates/footer.hbs'
 import templateArticle from '../templates/article.hbs'
+import templateExample from '../templates/example.hbs'
 import templateCompareArticle from '../templates/compare-article.hbs'
 import templateGenerator from '../templates/generator.hbs'
 import templateProject from '../templates/project.hbs'
@@ -245,6 +246,7 @@ function init() {
 
         articles.push({
           article: templateArticle(fields),
+          example: templateExample(fields),
           group: entry.group,
           name: entry.name
         })
@@ -571,6 +573,7 @@ function init() {
         entry = currentEntry
       }
     })
+
     let fields = {
       article: entry,
       versions: articleVersions[group][name]
@@ -630,6 +633,8 @@ function init() {
 
     return results
   }
+
+  global.Prism.highlightAll()
 
 }
 

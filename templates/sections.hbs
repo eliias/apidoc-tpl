@@ -1,11 +1,16 @@
 <section id="api-{{group}}">
-    <h1>{{underscoreToSpace title}}</h1>
-  {{#if description}}
-      <p>{{{nl2br description}}}</p>
-  {{/if}}
   {{#each articles}}
-      <div id="api-{{group}}-{{name}}">
-        {{{article}}}
+      <div id="api-{{group}}-{{name}}" class="row">
+          <div class="col-sm-6">
+              <h1>{{underscoreToSpace ../title}}</h1>
+            {{#if ../description}}
+                <p>{{{nl2br ../description}}}</p>
+            {{/if}}
+            {{{article}}}
+          </div>
+          <div class="col-sm-6 example">
+            {{{example}}}
+          </div>
       </div>
   {{/each}}
 </section>

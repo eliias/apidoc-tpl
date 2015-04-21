@@ -59,9 +59,6 @@ Handlebars.registerHelper('underscoreToSpace', function(text) {
   return text.replace(/(_+)/g, ' ')
 })
 
-/**
- *
- */
 Handlebars.registerHelper('assign', function(name) {
   if (arguments.length > 0) {
     let type = typeof(arguments[1])
@@ -76,16 +73,10 @@ Handlebars.registerHelper('assign', function(name) {
   return ''
 })
 
-/**
- *
- */
 Handlebars.registerHelper('nl2br', function(text) {
   return _handlebarsNewlineToBreak(text)
 })
 
-/**
- *
- */
 Handlebars.registerHelper('if_eq', function(context, options) {
   let compare = context
   // Get length if context is an object
@@ -100,9 +91,6 @@ Handlebars.registerHelper('if_eq', function(context, options) {
   return options.inverse(this)
 })
 
-/**
- *
- */
 Handlebars.registerHelper('if_gt', function(context, options) {
   let compare = context
   // Get length if context is an object
@@ -117,9 +105,6 @@ Handlebars.registerHelper('if_gt', function(context, options) {
   return options.inverse(this)
 })
 
-/**
- *
- */
 let templateCache = {}
 Handlebars.registerHelper('subTemplate', function(name, sourceContext) {
   let template = templates[name]
@@ -127,16 +112,14 @@ Handlebars.registerHelper('subTemplate', function(name, sourceContext) {
   return new Handlebars.SafeString(template(templateContext))
 })
 
-/**
- *
- */
 Handlebars.registerHelper('toLowerCase', function(value) {
   return (value && typeof value === 'string') ? value.toLowerCase() : ''
 })
 
-/**
- *
- */
+Handlebars.registerHelper('toUpperCase', function(value) {
+  return (value && typeof value === 'string') ? value.toUpperCase() : ''
+})
+
 Handlebars.registerHelper('splitFill', function(value, splitChar, fillChar) {
   let splits = value.split(splitChar)
   return new Array(splits.length).join(fillChar) + splits[splits.length - 1]
@@ -152,9 +135,6 @@ function _handlebarsNewlineToBreak(text) {
   return ('' + text).replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1' + '<br>' + '$2')
 }
 
-/**
- *
- */
 Handlebars.registerHelper('each_compare_list_field', function(source, compare, options) {
   let fieldName = options.hash.field
   let newSource = []
@@ -177,9 +157,6 @@ Handlebars.registerHelper('each_compare_list_field', function(source, compare, o
   return _handlebarsEachCompared('key', newSource, newCompare, options)
 })
 
-/**
- *
- */
 Handlebars.registerHelper('each_compare_keys', function(source, compare, options) {
   let newSource = []
   if (source) {
@@ -205,23 +182,14 @@ Handlebars.registerHelper('each_compare_keys', function(source, compare, options
   return _handlebarsEachCompared('key', newSource, newCompare, options)
 })
 
-/**
- *
- */
 Handlebars.registerHelper('each_compare_field', function(source, compare, options) {
   return _handlebarsEachCompared('field', source, compare, options)
 })
 
-/**
- *
- */
 Handlebars.registerHelper('each_compare_title', function(source, compare, options) {
   return _handlebarsEachCompared('title', source, compare, options)
 })
 
-/**
- *
- */
 Handlebars.registerHelper('showDiff', function(source, compare, options) {
   let ds = ''
   if (source === compare) {
@@ -247,9 +215,6 @@ Handlebars.registerHelper('showDiff', function(source, compare, options) {
   return ds
 })
 
-/**
- *
- */
 function _handlebarsEachCompared(fieldname, source, compare, options) {
   let dataList = []
   let index = 0
