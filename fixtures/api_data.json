@@ -1,0 +1,2090 @@
+[
+  {
+    "type": "get",
+    "url": "/projects/:project/campaigns/:id",
+    "title": "Request a single campaign",
+    "description": "<p>Request a specific campaign.</p> ",
+    "version": "0.0.1",
+    "name": "GetCampaign",
+    "group": "Campaigns",
+    "permission": [
+      {
+        "name": "owner",
+        "title": "User owning access rights needed",
+        "description": "<p>This uses a special assertion to check ownership of resource</p> "
+      }
+    ],
+    "parameter": {
+      "fields": {
+        "Params": [
+          {
+            "group": "Params",
+            "type": "<p>String</p> ",
+            "optional": false,
+            "field": "id",
+            "description": "<p>The unique user ID</p> "
+          }
+        ]
+      }
+    },
+    "examples": [
+      {
+        "title": "C#",
+        "content": "Uri campaignsUri = new Uri(\"https://api.clustar.net/v1/projects/554cb81b8a782b1c7b7a40a1/campaigns/554cb8648a782b1c7b7a40a3\");\nHTTPRequest request = new HTTPRequest(campaignsUri, HTTPMethods.Get, OnRequestFinished);\nrequest.Send();",
+        "type": "csharp"
+      },
+      {
+        "title": "CURL",
+        "content": "curl -i https://api.clustar.net/v1/projects/554cb81b8a782b1c7b7a40a1/campaigns/554cb8648a782b1c7b7a40a3",
+        "type": "curl"
+      },
+      {
+        "title": "JavaScript",
+        "content": "fetch('https://api.clustar.net/v1/projects/554cb81b8a782b1c7b7a40a1/campaigns/554cb8648a782b1c7b7a40a3')\n  .then((campaign) => {\n    console.log(campaign)\n  })\n  .catch(err => throw new Error(err))",
+        "type": "js"
+      }
+    ],
+    "filename": "src/routes/projects/campaigns.js",
+    "groupTitle": "Campaigns",
+    "sampleRequest": [
+      {
+        "url": "https://api.clustar.net/v1/projects/:project/campaigns/:id"
+      }
+    ],
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "<p>Object</p> ",
+            "optional": false,
+            "field": "campaign",
+            "description": "<p>The campaign object</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>String</p> ",
+            "optional": true,
+            "field": "campaign.name",
+            "description": "<p>Human readable campaign name</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>Project</p> ",
+            "optional": true,
+            "field": "campaign.project",
+            "description": "<p>The parent project of this campaign</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>Node[]</p> ",
+            "optional": true,
+            "field": "campaign.graph",
+            "description": "<p>List of nodes, building a graph</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>String</p> ",
+            "allowedValues": [
+              "\"active\"",
+              "\"disabled\""
+            ],
+            "optional": true,
+            "field": "campaign.state",
+            "description": "<p>Current campaign state</p> "
+          }
+        ]
+      }
+    },
+    "error": {
+      "fields": {
+        "4xx": [
+          {
+            "group": "4xx",
+            "type": "<p>401</p> ",
+            "optional": false,
+            "field": "Unauthorized",
+            "description": "<p>Please login first</p> "
+          },
+          {
+            "group": "4xx",
+            "type": "<p>403</p> ",
+            "optional": false,
+            "field": "Forbidden",
+            "description": "<p>You don't have enough privileges</p> "
+          },
+          {
+            "group": "4xx",
+            "type": "<p>404</p> ",
+            "optional": false,
+            "field": "UserNotFound",
+            "description": "<p>User with ID does not exist</p> "
+          }
+        ],
+        "5xx": [
+          {
+            "group": "5xx",
+            "type": "<p>500</p> ",
+            "optional": false,
+            "field": "InternalServerError",
+            "description": "<p>Something went south</p> "
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "get",
+    "url": "/projects/:project/campaigns/:id.svg",
+    "title": "Render a campaign graph as SVG",
+    "description": "<p>Renders the graph with a force-directed layout algorithm. Useful for debugging graph networks.</p> ",
+    "version": "0.0.1",
+    "name": "GetRenderedGraph",
+    "group": "Campaigns",
+    "permission": [
+      {
+        "name": "owner",
+        "title": "User owning access rights needed",
+        "description": "<p>This uses a special assertion to check ownership of resource</p> "
+      }
+    ],
+    "parameter": {
+      "fields": {
+        "Params": [
+          {
+            "group": "Params",
+            "type": "<p>String</p> ",
+            "optional": false,
+            "field": "id",
+            "description": "<p>The unique user ID</p> "
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "<p>SVG</p> ",
+            "optional": false,
+            "field": "Graph",
+            "description": "<p>A SVG rendered graph layout</p> "
+          }
+        ]
+      }
+    },
+    "examples": [
+      {
+        "title": "HTML",
+        "content": "<object type=\"image/svg+xml\" data=\"https://api.clustar.net/v1/projects/554cb81b8a782b1c7b7a40a1/campaigns/554cb8648a782b1c7b7a40a3.svg\" width=\"640\" height=\"480\"></object>",
+        "type": "markup"
+      }
+    ],
+    "filename": "src/routes/projects/campaigns.js",
+    "groupTitle": "Campaigns",
+    "sampleRequest": [
+      {
+        "url": "https://api.clustar.net/v1/projects/:project/campaigns/:id.svg"
+      }
+    ]
+  },
+  {
+    "type": "get",
+    "url": "/docs",
+    "title": "About this documentation",
+    "description": "<p>This is the URL of the doc you are currently reading</p> ",
+    "version": "0.0.1",
+    "name": "GetDocs",
+    "group": "Docs",
+    "permission": [
+      {
+        "name": "user",
+        "title": "Authenticated user access rights needed",
+        "description": "<p>Usually this role is reserved for customers</p> "
+      }
+    ],
+    "examples": [
+      {
+        "title": "BASH",
+        "content": "open -a \"Google Chrome\" https://api.clustar.net/v1/docs",
+        "type": "bash"
+      }
+    ],
+    "filename": "src/routes/index.js",
+    "groupTitle": "Docs",
+    "sampleRequest": [
+      {
+        "url": "https://api.clustar.net/v1/docs"
+      }
+    ]
+  },
+  {
+    "type": "post",
+    "url": "/nodes",
+    "title": "Creates a node",
+    "description": "<p>Creates a new node. This node must be attached to a graph.</p> ",
+    "version": "0.0.1",
+    "name": "CreateNode",
+    "group": "Nodes",
+    "permission": [
+      {
+        "name": "owner",
+        "title": "User owning access rights needed",
+        "description": "<p>This uses a special assertion to check ownership of resource</p> "
+      }
+    ],
+    "examples": [
+      {
+        "title": "C#",
+        "content": "Uri nodesUri = new Uri(\"https://api.clustar.net/v1/nodes\");\nHTTPRequest request = new HTTPRequest(nodesUri, HTTPMethods.Post, OnRequestFinished);\nrequest.Send();",
+        "type": "csharp"
+      },
+      {
+        "title": "CURL",
+        "content": "curl -X POST -d \"…\" -i https://api.clustar.net/v1/nodes",
+        "type": "curl"
+      },
+      {
+        "title": "JavaScript",
+        "content": "fetch(\n  'https://api.clustar.net/v1/nodes',\n  {\n    method: 'post',\n    body: new FormData(form)\n  }\n)\n  .then((node) => {\n    console.log(node)\n  })\n  .catch(err => throw new Error(err))",
+        "type": "js"
+      }
+    ],
+    "filename": "src/routes/nodes.js",
+    "groupTitle": "Nodes",
+    "sampleRequest": [
+      {
+        "url": "https://api.clustar.net/v1/nodes"
+      }
+    ],
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "<p>Object</p> ",
+            "optional": false,
+            "field": "node",
+            "description": "<p>The node object</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>String</p> ",
+            "optional": true,
+            "field": "node.type",
+            "description": "<p>The discriminator type of this node</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>String</p> ",
+            "optional": true,
+            "field": "node.name",
+            "description": "<p>The human readable node name</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>Number[]</p> ",
+            "optional": true,
+            "field": "node.location",
+            "description": "<p>GPS coordinates in format of [lng, lat]</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>String</p> ",
+            "optional": true,
+            "field": "node.edges",
+            "description": "<p>Current campaign state</p> "
+          }
+        ]
+      }
+    },
+    "error": {
+      "fields": {
+        "4xx": [
+          {
+            "group": "4xx",
+            "type": "<p>401</p> ",
+            "optional": false,
+            "field": "Unauthorized",
+            "description": "<p>Please login first</p> "
+          },
+          {
+            "group": "4xx",
+            "type": "<p>403</p> ",
+            "optional": false,
+            "field": "Forbidden",
+            "description": "<p>You don't have enough privileges</p> "
+          },
+          {
+            "group": "4xx",
+            "type": "<p>404</p> ",
+            "optional": false,
+            "field": "UserNotFound",
+            "description": "<p>User with ID does not exist</p> "
+          }
+        ],
+        "5xx": [
+          {
+            "group": "5xx",
+            "type": "<p>500</p> ",
+            "optional": false,
+            "field": "InternalServerError",
+            "description": "<p>Something went south</p> "
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "get",
+    "url": "/nodes/:id",
+    "title": "Request a single node",
+    "description": "<p>Get a specific node</p> ",
+    "version": "0.0.1",
+    "name": "GetNode",
+    "group": "Nodes",
+    "permission": [
+      {
+        "name": "owner",
+        "title": "User owning access rights needed",
+        "description": "<p>This uses a special assertion to check ownership of resource</p> "
+      }
+    ],
+    "examples": [
+      {
+        "title": "C#",
+        "content": "Uri nodesUri = new Uri(\"https://api.clustar.net/v1/nodes/55572fb7db48328398527410\");\nHTTPRequest request = new HTTPRequest(nodesUri, HTTPMethods.Get, OnRequestFinished);\nrequest.Send();",
+        "type": "csharp"
+      },
+      {
+        "title": "CURL",
+        "content": "curl -i https://api.clustar.net/v1/nodes/55572fb7db48328398527410",
+        "type": "curl"
+      },
+      {
+        "title": "JavaScript",
+        "content": "fetch('https://api.clustar.net/v1/nodes/55572fb7db48328398527410')\n  .then((node) => {\n    console.log(node)\n  })\n  .catch(err => throw new Error(err))",
+        "type": "js"
+      }
+    ],
+    "filename": "src/routes/nodes.js",
+    "groupTitle": "Nodes",
+    "sampleRequest": [
+      {
+        "url": "https://api.clustar.net/v1/nodes/:id"
+      }
+    ],
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "<p>Object</p> ",
+            "optional": false,
+            "field": "node",
+            "description": "<p>The node object</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>String</p> ",
+            "optional": true,
+            "field": "node.type",
+            "description": "<p>The discriminator type of this node</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>String</p> ",
+            "optional": true,
+            "field": "node.name",
+            "description": "<p>The human readable node name</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>Number[]</p> ",
+            "optional": true,
+            "field": "node.location",
+            "description": "<p>GPS coordinates in format of [lng, lat]</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>String</p> ",
+            "optional": true,
+            "field": "node.edges",
+            "description": "<p>Current campaign state</p> "
+          }
+        ]
+      }
+    },
+    "error": {
+      "fields": {
+        "4xx": [
+          {
+            "group": "4xx",
+            "type": "<p>401</p> ",
+            "optional": false,
+            "field": "Unauthorized",
+            "description": "<p>Please login first</p> "
+          },
+          {
+            "group": "4xx",
+            "type": "<p>403</p> ",
+            "optional": false,
+            "field": "Forbidden",
+            "description": "<p>You don't have enough privileges</p> "
+          },
+          {
+            "group": "4xx",
+            "type": "<p>404</p> ",
+            "optional": false,
+            "field": "UserNotFound",
+            "description": "<p>User with ID does not exist</p> "
+          }
+        ],
+        "5xx": [
+          {
+            "group": "5xx",
+            "type": "<p>500</p> ",
+            "optional": false,
+            "field": "InternalServerError",
+            "description": "<p>Something went south</p> "
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "get",
+    "url": "/nodes",
+    "title": "Request a list of nodes",
+    "description": "<p>Get a list of all nodes. This does not reflect any relation to a specific graph.</p> ",
+    "version": "0.0.1",
+    "name": "GetNodes",
+    "group": "Nodes",
+    "permission": [
+      {
+        "name": "owner",
+        "title": "User owning access rights needed",
+        "description": "<p>This uses a special assertion to check ownership of resource</p> "
+      }
+    ],
+    "examples": [
+      {
+        "title": "C#",
+        "content": "Uri nodesUri = new Uri(\"https://api.clustar.net/v1/nodes\");\nHTTPRequest request = new HTTPRequest(nodesUri, HTTPMethods.Get, OnRequestFinished);\nrequest.Send();",
+        "type": "csharp"
+      },
+      {
+        "title": "CURL",
+        "content": "curl -i https://api.clustar.net/v1/nodes",
+        "type": "curl"
+      },
+      {
+        "title": "JavaScript",
+        "content": "fetch('https://api.clustar.net/v1/nodes')\n  .then((nodes) => {\n    console.log(node)\n  })\n  .catch(err => throw new Error(err))",
+        "type": "js"
+      }
+    ],
+    "filename": "src/routes/nodes.js",
+    "groupTitle": "Nodes",
+    "sampleRequest": [
+      {
+        "url": "https://api.clustar.net/v1/nodes"
+      }
+    ],
+    "parameter": {
+      "fields": {
+        "Query": [
+          {
+            "group": "Query",
+            "type": "<p>String</p> ",
+            "optional": false,
+            "field": "filter",
+            "description": "<p><code>?filter=name LK 'hannes'</code></p> "
+          },
+          {
+            "group": "Query",
+            "type": "<p>String</p> ",
+            "optional": false,
+            "field": "expand",
+            "description": "<p><code>?expand=graph</code></p> "
+          },
+          {
+            "group": "Query",
+            "type": "<p>Number</p> ",
+            "optional": false,
+            "field": "limit",
+            "description": "<p><code>?limit=10</code></p> "
+          },
+          {
+            "group": "Query",
+            "type": "<p>Number</p> ",
+            "optional": false,
+            "field": "offset",
+            "description": "<p><code>?offset=10</code></p> "
+          },
+          {
+            "group": "Query",
+            "type": "<p>String</p> ",
+            "optional": false,
+            "field": "sort",
+            "description": "<p><code>?sort=_id</code></p> "
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "<p>Object[]</p> ",
+            "optional": false,
+            "field": "nodes",
+            "description": "<p>List of nodes</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>String</p> ",
+            "optional": true,
+            "field": "nodes.type",
+            "description": "<p>The discriminator type of this node</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>String</p> ",
+            "optional": true,
+            "field": "nodes.name",
+            "description": "<p>The human readable node name</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>Number[]</p> ",
+            "optional": true,
+            "field": "nodes.location",
+            "description": "<p>GPS coordinates in format of [lng, lat]</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>String</p> ",
+            "optional": true,
+            "field": "nodes.edges",
+            "description": "<p>Current campaign state</p> "
+          }
+        ]
+      }
+    },
+    "error": {
+      "fields": {
+        "4xx": [
+          {
+            "group": "4xx",
+            "type": "<p>401</p> ",
+            "optional": false,
+            "field": "Unauthorized",
+            "description": "<p>Please login first</p> "
+          },
+          {
+            "group": "4xx",
+            "type": "<p>403</p> ",
+            "optional": false,
+            "field": "Forbidden",
+            "description": "<p>You don't have enough privileges</p> "
+          },
+          {
+            "group": "4xx",
+            "type": "<p>404</p> ",
+            "optional": false,
+            "field": "UserNotFound",
+            "description": "<p>User with ID does not exist</p> "
+          }
+        ],
+        "5xx": [
+          {
+            "group": "5xx",
+            "type": "<p>500</p> ",
+            "optional": false,
+            "field": "InternalServerError",
+            "description": "<p>Something went south</p> "
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "delete",
+    "url": "/nodes/:id",
+    "title": "Remove a single node",
+    "description": "<p>Removes a node.</p> ",
+    "version": "0.0.1",
+    "name": "RemoveNode",
+    "group": "Nodes",
+    "permission": [
+      {
+        "name": "owner",
+        "title": "User owning access rights needed",
+        "description": "<p>This uses a special assertion to check ownership of resource</p> "
+      }
+    ],
+    "success": {
+      "fields": {
+        "2xx": [
+          {
+            "group": "2xx",
+            "type": "<p>204</p> ",
+            "optional": false,
+            "field": "NoContent",
+            "description": "<p>Node has been deleted</p> "
+          }
+        ]
+      }
+    },
+    "examples": [
+      {
+        "title": "C#",
+        "content": "Uri nodesUri = new Uri(\"https://api.clustar.net/v1/nodes/55572fb7db48328398527410\");\nHTTPRequest request = new HTTPRequest(nodesUri, HTTPMethods.Delete, OnRequestFinished);\nrequest.Send();",
+        "type": "csharp"
+      },
+      {
+        "title": "CURL",
+        "content": "curl -X DELETE -i https://api.clustar.net/v1/nodes/55572fb7db48328398527410",
+        "type": "curl"
+      },
+      {
+        "title": "JavaScript",
+        "content": "fetch(\n  'https://api.clustar.net/v1/nodes/55572fb7db48328398527410',\n  {method: 'delete'}\n)\n  .then(function() {\n    console.log('successfully deleted')\n  })\n  .catch(err => throw new Error(err))",
+        "type": "js"
+      }
+    ],
+    "filename": "src/routes/nodes.js",
+    "groupTitle": "Nodes",
+    "sampleRequest": [
+      {
+        "url": "https://api.clustar.net/v1/nodes/:id"
+      }
+    ]
+  },
+  {
+    "type": "put",
+    "url": "/nodes/:id",
+    "title": "Create or modify a single node",
+    "description": "<p>Modify an existing node.</p> ",
+    "version": "0.0.1",
+    "name": "SaveNode",
+    "group": "Nodes",
+    "permission": [
+      {
+        "name": "owner",
+        "title": "User owning access rights needed",
+        "description": "<p>This uses a special assertion to check ownership of resource</p> "
+      }
+    ],
+    "examples": [
+      {
+        "title": "C#",
+        "content": "Uri nodesUri = new Uri(\"https://api.clustar.net/v1/nodes/55572fb7db48328398527410\");\nHTTPRequest request = new HTTPRequest(nodesUri, HTTPMethods.Put, OnRequestFinished);\nrequest.Send();",
+        "type": "csharp"
+      },
+      {
+        "title": "CURL",
+        "content": "curl -X PUT -d \"…\" -i https://api.clustar.net/v1/nodes/55572fb7db48328398527410",
+        "type": "curl"
+      },
+      {
+        "title": "JavaScript",
+        "content": "fetch(\n  'https://api.clustar.net/v1/nodes/55572fb7db48328398527410',\n  {\n    method: 'put',\n    body: new FormData(form)\n  }\n)\n  .then((node) => {\n    console.log(node)\n  })\n  .catch(err => throw new Error(err))",
+        "type": "js"
+      }
+    ],
+    "filename": "src/routes/nodes.js",
+    "groupTitle": "Nodes",
+    "sampleRequest": [
+      {
+        "url": "https://api.clustar.net/v1/nodes/:id"
+      }
+    ],
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "<p>Object</p> ",
+            "optional": false,
+            "field": "node",
+            "description": "<p>The node object</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>String</p> ",
+            "optional": true,
+            "field": "node.type",
+            "description": "<p>The discriminator type of this node</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>String</p> ",
+            "optional": true,
+            "field": "node.name",
+            "description": "<p>The human readable node name</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>Number[]</p> ",
+            "optional": true,
+            "field": "node.location",
+            "description": "<p>GPS coordinates in format of [lng, lat]</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>String</p> ",
+            "optional": true,
+            "field": "node.edges",
+            "description": "<p>Current campaign state</p> "
+          }
+        ]
+      }
+    },
+    "error": {
+      "fields": {
+        "4xx": [
+          {
+            "group": "4xx",
+            "type": "<p>401</p> ",
+            "optional": false,
+            "field": "Unauthorized",
+            "description": "<p>Please login first</p> "
+          },
+          {
+            "group": "4xx",
+            "type": "<p>403</p> ",
+            "optional": false,
+            "field": "Forbidden",
+            "description": "<p>You don't have enough privileges</p> "
+          },
+          {
+            "group": "4xx",
+            "type": "<p>404</p> ",
+            "optional": false,
+            "field": "UserNotFound",
+            "description": "<p>User with ID does not exist</p> "
+          }
+        ],
+        "5xx": [
+          {
+            "group": "5xx",
+            "type": "<p>500</p> ",
+            "optional": false,
+            "field": "InternalServerError",
+            "description": "<p>Something went south</p> "
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "get",
+    "url": "/projects/:id",
+    "title": "Request a single project",
+    "version": "0.0.1",
+    "name": "GetProject",
+    "description": "<p>Get a specific project by ID</p> ",
+    "group": "Projects",
+    "permission": [
+      {
+        "name": "admin",
+        "title": "Admin access rights needed",
+        "description": "<p>Admins are all users which have superpower</p> "
+      }
+    ],
+    "examples": [
+      {
+        "title": "C#",
+        "content": "Uri projectsUri = new Uri(\"https://api.clustar.net/v1/projects/554cb81b8a782b1c7b7a40a1\");\nHTTPRequest request = new HTTPRequest(projectsUri, HTTPMethods.Get, OnRequestFinished);\nrequest.Send();",
+        "type": "csharp"
+      },
+      {
+        "title": "CURL",
+        "content": "curl -i https://api.clustar.net/v1/projects/554cb81b8a782b1c7b7a40a1",
+        "type": "curl"
+      },
+      {
+        "title": "JavaScript",
+        "content": "fetch('https://api.clustar.net/v1/projects/554cb81b8a782b1c7b7a40a1')\n  .then((project) => {\n    console.log(project)\n  })\n  .catch(err => throw new Error(err))",
+        "type": "js"
+      }
+    ],
+    "filename": "src/routes/projects.js",
+    "groupTitle": "Projects",
+    "sampleRequest": [
+      {
+        "url": "https://api.clustar.net/v1/projects/:id"
+      }
+    ],
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "<p>Object</p> ",
+            "optional": false,
+            "field": "project",
+            "description": "<p>The project object</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>String</p> ",
+            "optional": true,
+            "field": "project.name",
+            "description": "<p>Unique project ID</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>String</p> ",
+            "optional": true,
+            "field": "project.owner",
+            "description": "<p>The email address of the user</p> "
+          }
+        ]
+      }
+    },
+    "error": {
+      "fields": {
+        "4xx": [
+          {
+            "group": "4xx",
+            "type": "<p>401</p> ",
+            "optional": false,
+            "field": "Unauthorized",
+            "description": "<p>Please login first</p> "
+          },
+          {
+            "group": "4xx",
+            "type": "<p>403</p> ",
+            "optional": false,
+            "field": "Forbidden",
+            "description": "<p>You don't have enough privileges</p> "
+          },
+          {
+            "group": "4xx",
+            "type": "<p>404</p> ",
+            "optional": false,
+            "field": "ProjectNotFound",
+            "description": "<p>Project with ID does not exist</p> "
+          }
+        ],
+        "5xx": [
+          {
+            "group": "5xx",
+            "type": "<p>500</p> ",
+            "optional": false,
+            "field": "InternalServerError",
+            "description": "<p>Something went south</p> "
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "get",
+    "url": "/projects",
+    "title": "Request list of projects",
+    "version": "0.0.1",
+    "name": "GetProjects",
+    "description": "<p>Get a list of projects</p> ",
+    "group": "Projects",
+    "permission": [
+      {
+        "name": "admin",
+        "title": "Admin access rights needed",
+        "description": "<p>Admins are all users which have superpower</p> "
+      }
+    ],
+    "examples": [
+      {
+        "title": "C#",
+        "content": "Uri projectsUri = new Uri(\"https://api.clustar.net/v1/projects\");\nHTTPRequest request = new HTTPRequest(projectsUri, HTTPMethods.Get, OnRequestFinished);\nrequest.Send();",
+        "type": "csharp"
+      },
+      {
+        "title": "CURL",
+        "content": "curl -i https://api.clustar.net/v1/projects",
+        "type": "curl"
+      },
+      {
+        "title": "JavaScript",
+        "content": "fetch('https://api.clustar.net/v1/projects')\n  .then((projects) => {\n    console.log(projects)\n  })\n  .catch(err => throw new Error(err))",
+        "type": "js"
+      }
+    ],
+    "filename": "src/routes/projects.js",
+    "groupTitle": "Projects",
+    "sampleRequest": [
+      {
+        "url": "https://api.clustar.net/v1/projects"
+      }
+    ],
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "<p>Object[]</p> ",
+            "optional": false,
+            "field": "projects",
+            "description": "<p>List of projects</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>String</p> ",
+            "optional": true,
+            "field": "projects.name",
+            "description": "<p>Unique project ID</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>String</p> ",
+            "optional": true,
+            "field": "projects.owner",
+            "description": "<p>The email address of the user</p> "
+          }
+        ]
+      }
+    },
+    "error": {
+      "fields": {
+        "4xx": [
+          {
+            "group": "4xx",
+            "type": "<p>401</p> ",
+            "optional": false,
+            "field": "Unauthorized",
+            "description": "<p>Please login first</p> "
+          },
+          {
+            "group": "4xx",
+            "type": "<p>403</p> ",
+            "optional": false,
+            "field": "Forbidden",
+            "description": "<p>You don't have enough privileges</p> "
+          },
+          {
+            "group": "4xx",
+            "type": "<p>404</p> ",
+            "optional": false,
+            "field": "ProjectNotFound",
+            "description": "<p>Project with ID does not exist</p> "
+          }
+        ],
+        "5xx": [
+          {
+            "group": "5xx",
+            "type": "<p>500</p> ",
+            "optional": false,
+            "field": "InternalServerError",
+            "description": "<p>Something went south</p> "
+          }
+        ]
+      }
+    },
+    "parameter": {
+      "fields": {
+        "Query": [
+          {
+            "group": "Query",
+            "type": "<p>String</p> ",
+            "optional": false,
+            "field": "filter",
+            "description": "<p><code>?filter=name LK 'hannes'</code></p> "
+          },
+          {
+            "group": "Query",
+            "type": "<p>String</p> ",
+            "optional": false,
+            "field": "expand",
+            "description": "<p><code>?expand=graph</code></p> "
+          },
+          {
+            "group": "Query",
+            "type": "<p>Number</p> ",
+            "optional": false,
+            "field": "limit",
+            "description": "<p><code>?limit=10</code></p> "
+          },
+          {
+            "group": "Query",
+            "type": "<p>Number</p> ",
+            "optional": false,
+            "field": "offset",
+            "description": "<p><code>?offset=10</code></p> "
+          },
+          {
+            "group": "Query",
+            "type": "<p>String</p> ",
+            "optional": false,
+            "field": "sort",
+            "description": "<p><code>?sort=_id</code></p> "
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "delete",
+    "url": "/projects/:id",
+    "title": "Remove a single project",
+    "version": "0.0.1",
+    "name": "RemoveProject",
+    "description": "<p>Deletes a project</p> ",
+    "group": "Projects",
+    "permission": [
+      {
+        "name": "admin",
+        "title": "Admin access rights needed",
+        "description": "<p>Admins are all users which have superpower</p> "
+      }
+    ],
+    "success": {
+      "fields": {
+        "2xx": [
+          {
+            "group": "2xx",
+            "type": "<p>204</p> ",
+            "optional": false,
+            "field": "NoContent",
+            "description": "<p>Project has been deleted</p> "
+          }
+        ]
+      }
+    },
+    "filename": "src/routes/projects.js",
+    "groupTitle": "Projects",
+    "sampleRequest": [
+      {
+        "url": "https://api.clustar.net/v1/projects/:id"
+      }
+    ]
+  },
+  {
+    "type": "get",
+    "url": "/users/:user/campaigns/:id",
+    "title": "Request a single campaign",
+    "description": "<p>Request a specific campaign with the users state applied.</p> ",
+    "version": "0.0.1",
+    "name": "GetCampaign",
+    "group": "User_Campaigns",
+    "permission": [
+      {
+        "name": "owner",
+        "title": "User owning access rights needed",
+        "description": "<p>This uses a special assertion to check ownership of resource</p> "
+      }
+    ],
+    "parameter": {
+      "fields": {
+        "Params": [
+          {
+            "group": "Params",
+            "type": "<p>String</p> ",
+            "optional": false,
+            "field": "user",
+            "description": "<p>The user ID</p> "
+          },
+          {
+            "group": "Params",
+            "type": "<p>String</p> ",
+            "optional": false,
+            "field": "id",
+            "description": "<p>The unique campaign ID</p> "
+          }
+        ]
+      }
+    },
+    "examples": [
+      {
+        "title": "C#",
+        "content": "Uri campaignsUri = new Uri(\"https://api.clustar.net/v1/users/5532ea138a782b539404f7e1/campaigns/55572fb7db48328398527410\");\nHTTPRequest request = new HTTPRequest(campaignsUri, HTTPMethods.Get, OnRequestFinished);\nrequest.Send();",
+        "type": "csharp"
+      },
+      {
+        "title": "CURL",
+        "content": "curl -i https://api.clustar.net/v1/users/5532ea138a782b539404f7e1/campaigns/55572fb7db48328398527410",
+        "type": "curl"
+      },
+      {
+        "title": "JavaScript",
+        "content": "fetch('https://api.clustar.net/v1/users/5532ea138a782b539404f7e1/campaigns/55572fb7db48328398527410')\n  .then((campaign) => {\n    console.log(campaign)\n  })\n  .catch(err => throw new Error(err))",
+        "type": "js"
+      }
+    ],
+    "filename": "src/routes/users/campaigns.js",
+    "groupTitle": "User_Campaigns",
+    "sampleRequest": [
+      {
+        "url": "https://api.clustar.net/v1/users/:user/campaigns/:id"
+      }
+    ],
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "<p>Object</p> ",
+            "optional": false,
+            "field": "campaign",
+            "description": "<p>The campaign object</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>String</p> ",
+            "optional": true,
+            "field": "campaign.name",
+            "description": "<p>Human readable campaign name</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>Project</p> ",
+            "optional": true,
+            "field": "campaign.project",
+            "description": "<p>The parent project of this campaign</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>Node[]</p> ",
+            "optional": true,
+            "field": "campaign.graph",
+            "description": "<p>List of nodes, building a graph</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>String</p> ",
+            "allowedValues": [
+              "\"active\"",
+              "\"disabled\""
+            ],
+            "optional": true,
+            "field": "campaign.state",
+            "description": "<p>Current campaign state</p> "
+          }
+        ]
+      }
+    },
+    "error": {
+      "fields": {
+        "4xx": [
+          {
+            "group": "4xx",
+            "type": "<p>401</p> ",
+            "optional": false,
+            "field": "Unauthorized",
+            "description": "<p>Please login first</p> "
+          },
+          {
+            "group": "4xx",
+            "type": "<p>403</p> ",
+            "optional": false,
+            "field": "Forbidden",
+            "description": "<p>You don't have enough privileges</p> "
+          },
+          {
+            "group": "4xx",
+            "type": "<p>404</p> ",
+            "optional": false,
+            "field": "UserNotFound",
+            "description": "<p>User with ID does not exist</p> "
+          }
+        ],
+        "5xx": [
+          {
+            "group": "5xx",
+            "type": "<p>500</p> ",
+            "optional": false,
+            "field": "InternalServerError",
+            "description": "<p>Something went south</p> "
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "get",
+    "url": "/users/:user/campaigns",
+    "title": "Request a list of campaigns",
+    "description": "<p>Fetch a list of user related campaign states.</p> ",
+    "version": "0.0.1",
+    "name": "GetCampaigns",
+    "group": "User_Campaigns",
+    "permission": [
+      {
+        "name": "owner",
+        "title": "User owning access rights needed",
+        "description": "<p>This uses a special assertion to check ownership of resource</p> "
+      }
+    ],
+    "parameter": {
+      "fields": {
+        "Params": [
+          {
+            "group": "Params",
+            "type": "<p>String</p> ",
+            "optional": false,
+            "field": "user",
+            "description": "<p>The user ID</p> "
+          }
+        ],
+        "Query": [
+          {
+            "group": "Query",
+            "type": "<p>String</p> ",
+            "optional": false,
+            "field": "filter",
+            "description": "<p><code>?filter=name LK 'hannes'</code></p> "
+          },
+          {
+            "group": "Query",
+            "type": "<p>String</p> ",
+            "optional": false,
+            "field": "expand",
+            "description": "<p><code>?expand=graph</code></p> "
+          },
+          {
+            "group": "Query",
+            "type": "<p>Number</p> ",
+            "optional": false,
+            "field": "limit",
+            "description": "<p><code>?limit=10</code></p> "
+          },
+          {
+            "group": "Query",
+            "type": "<p>Number</p> ",
+            "optional": false,
+            "field": "offset",
+            "description": "<p><code>?offset=10</code></p> "
+          },
+          {
+            "group": "Query",
+            "type": "<p>String</p> ",
+            "optional": false,
+            "field": "sort",
+            "description": "<p><code>?sort=_id</code></p> "
+          }
+        ]
+      }
+    },
+    "examples": [
+      {
+        "title": "C#",
+        "content": "Uri campaignsUri = new Uri(\"https://api.clustar.net/v1/users/5532ea138a782b539404f7e1/campaigns\");\nHTTPRequest request = new HTTPRequest(campaignsUri, HTTPMethods.Get, OnRequestFinished);\nrequest.Send();",
+        "type": "csharp"
+      },
+      {
+        "title": "CURL",
+        "content": "curl -i https://api.clustar.net/v1/users/5532ea138a782b539404f7e1/campaigns",
+        "type": "curl"
+      },
+      {
+        "title": "JavaScript",
+        "content": "fetch('https://api.clustar.net/v1/users/5532ea138a782b539404f7e1/campaigns')\n  .then((campaigns) => {\n    campaigns.data.forEach(function(campaign) {\n      console.log(campaign)\n    })\n  })\n  .catch(err => throw new Error(err))",
+        "type": "js"
+      }
+    ],
+    "filename": "src/routes/users/campaigns.js",
+    "groupTitle": "User_Campaigns",
+    "sampleRequest": [
+      {
+        "url": "https://api.clustar.net/v1/users/:user/campaigns"
+      }
+    ],
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "<p>Object[]</p> ",
+            "optional": false,
+            "field": "campaigns",
+            "description": "<p>List of campaigns</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>String</p> ",
+            "optional": true,
+            "field": "campaigns.name",
+            "description": "<p>Human readable campaign name</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>Project</p> ",
+            "optional": true,
+            "field": "campaigns.project",
+            "description": "<p>The parent project of this campaign</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>Node[]</p> ",
+            "optional": true,
+            "field": "campaigns.graph",
+            "description": "<p>List of nodes, building a graph</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>String</p> ",
+            "allowedValues": [
+              "\"active\"",
+              "\"disabled\""
+            ],
+            "optional": true,
+            "field": "campaigns.state",
+            "description": "<p>Current campaign state</p> "
+          }
+        ]
+      }
+    },
+    "error": {
+      "fields": {
+        "4xx": [
+          {
+            "group": "4xx",
+            "type": "<p>401</p> ",
+            "optional": false,
+            "field": "Unauthorized",
+            "description": "<p>Please login first</p> "
+          },
+          {
+            "group": "4xx",
+            "type": "<p>403</p> ",
+            "optional": false,
+            "field": "Forbidden",
+            "description": "<p>You don't have enough privileges</p> "
+          },
+          {
+            "group": "4xx",
+            "type": "<p>404</p> ",
+            "optional": false,
+            "field": "UserNotFound",
+            "description": "<p>User with ID does not exist</p> "
+          }
+        ],
+        "5xx": [
+          {
+            "group": "5xx",
+            "type": "<p>500</p> ",
+            "optional": false,
+            "field": "InternalServerError",
+            "description": "<p>Something went south</p> "
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "get",
+    "url": "/users/:user/campaigns/:id.svg",
+    "title": "Render a campaign graph as SVG",
+    "description": "<p>Renders the graph with a force-directed layout algorithm. Useful for debugging graph networks.</p> ",
+    "version": "0.0.1",
+    "name": "GetRenderedGraph",
+    "group": "User_Campaigns",
+    "permission": [
+      {
+        "name": "owner",
+        "title": "User owning access rights needed",
+        "description": "<p>This uses a special assertion to check ownership of resource</p> "
+      }
+    ],
+    "parameter": {
+      "fields": {
+        "Params": [
+          {
+            "group": "Params",
+            "type": "<p>String</p> ",
+            "optional": false,
+            "field": "user",
+            "description": "<p>The user ID</p> "
+          },
+          {
+            "group": "Params",
+            "type": "<p>String</p> ",
+            "optional": false,
+            "field": "id",
+            "description": "<p>The campaign user ID</p> "
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "<p>SVG</p> ",
+            "optional": false,
+            "field": "Graph",
+            "description": "<p>A SVG rendered graph layout</p> "
+          }
+        ]
+      }
+    },
+    "examples": [
+      {
+        "title": "HTML",
+        "content": "<object type=\"image/svg+xml\" data=\"https://api.clustar.net/v1/projects/554cb81b8a782b1c7b7a40a1/campaigns/554cb8648a782b1c7b7a40a3.svg\" width=\"640\" height=\"480\"></object>",
+        "type": "markup"
+      }
+    ],
+    "filename": "src/routes/users/campaigns.js",
+    "groupTitle": "User_Campaigns",
+    "sampleRequest": [
+      {
+        "url": "https://api.clustar.net/v1/users/:user/campaigns/:id.svg"
+      }
+    ]
+  },
+  {
+    "type": "delete",
+    "url": "/users/:user/campaigns/:id",
+    "title": "Remove a single campaign",
+    "description": "<p>Remove user state for given campaign. Does not actually delete the referenced campaign.</p> ",
+    "version": "0.0.1",
+    "name": "RemoveCampaign",
+    "group": "User_Campaigns",
+    "permission": [
+      {
+        "name": "owner",
+        "title": "User owning access rights needed",
+        "description": "<p>This uses a special assertion to check ownership of resource</p> "
+      }
+    ],
+    "success": {
+      "fields": {
+        "2xx": [
+          {
+            "group": "2xx",
+            "type": "<p>204</p> ",
+            "optional": false,
+            "field": "NoContent",
+            "description": "<p>Campaign has been deleted</p> "
+          }
+        ]
+      }
+    },
+    "parameter": {
+      "fields": {
+        "Params": [
+          {
+            "group": "Params",
+            "type": "<p>String</p> ",
+            "optional": false,
+            "field": "user",
+            "description": "<p>The user ID</p> "
+          },
+          {
+            "group": "Params",
+            "type": "<p>String</p> ",
+            "optional": false,
+            "field": "id",
+            "description": "<p>The unique campaign ID</p> "
+          }
+        ]
+      }
+    },
+    "examples": [
+      {
+        "title": "C#",
+        "content": "Uri campaignsUri = new Uri(\"https://api.clustar.net/v1/users/5532ea138a782b539404f7e1/campaigns/55572fb7db48328398527410\");\nHTTPRequest request = new HTTPRequest(campaignsUri, HTTPMethods.Delete, OnRequestFinished);\nrequest.Send();",
+        "type": "csharp"
+      },
+      {
+        "title": "CURL",
+        "content": "curl -X DELETE -i https://api.clustar.net/v1/users/5532ea138a782b539404f7e1/campaigns/55572fb7db48328398527410",
+        "type": "curl"
+      },
+      {
+        "title": "JavaScript",
+        "content": "fetch(\n  'https://api.clustar.net/v1/users/5532ea138a782b539404f7e1/campaigns/55572fb7db48328398527410',\n  {method: 'delete'}\n)\n  .then(function() {\n    console.log('successfully deleted')\n  })\n  .catch(err => throw new Error(err))",
+        "type": "js"
+      }
+    ],
+    "filename": "src/routes/users/campaigns.js",
+    "groupTitle": "User_Campaigns",
+    "sampleRequest": [
+      {
+        "url": "https://api.clustar.net/v1/users/:user/campaigns/:id"
+      }
+    ]
+  },
+  {
+    "type": "put",
+    "url": "/users/:user/campaigns/:id",
+    "title": "Create or modify a single campaign",
+    "description": "<p>Update user state for given campaign.</p> ",
+    "version": "0.0.1",
+    "name": "SaveCampaign",
+    "group": "User_Campaigns",
+    "permission": [
+      {
+        "name": "owner",
+        "title": "User owning access rights needed",
+        "description": "<p>This uses a special assertion to check ownership of resource</p> "
+      }
+    ],
+    "parameter": {
+      "fields": {
+        "Params": [
+          {
+            "group": "Params",
+            "type": "<p>String</p> ",
+            "optional": false,
+            "field": "user",
+            "description": "<p>The user ID</p> "
+          },
+          {
+            "group": "Params",
+            "type": "<p>String</p> ",
+            "optional": false,
+            "field": "id",
+            "description": "<p>The unique campaign ID</p> "
+          }
+        ]
+      }
+    },
+    "examples": [
+      {
+        "title": "C#",
+        "content": "Uri campaignsUri = new Uri(\"https://api.clustar.net/v1/users/5532ea138a782b539404f7e1/campaigns/55572fb7db48328398527410\");\nHTTPRequest request = new HTTPRequest(campaignsUri, HTTPMethods.Put, OnRequestFinished);\nrequest.Send();",
+        "type": "csharp"
+      },
+      {
+        "title": "CURL",
+        "content": "curl -X PUT -d \"…\" -i https://api.clustar.net/v1/users/5532ea138a782b539404f7e1/campaigns/55572fb7db48328398527410",
+        "type": "curl"
+      },
+      {
+        "title": "JavaScript",
+        "content": "fetch(\n  'https://api.clustar.net/v1/users/5532ea138a782b539404f7e1/campaigns/55572fb7db48328398527410',\n  {\n    method: 'put',\n    body: new FormData(form)\n  }\n)\n  .then((campaign) => {\n    console.log(campaign)\n  })\n  .catch(err => throw new Error(err))",
+        "type": "js"
+      }
+    ],
+    "filename": "src/routes/users/campaigns.js",
+    "groupTitle": "User_Campaigns",
+    "sampleRequest": [
+      {
+        "url": "https://api.clustar.net/v1/users/:user/campaigns/:id"
+      }
+    ],
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "<p>Object</p> ",
+            "optional": false,
+            "field": "campaign",
+            "description": "<p>The campaign object</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>String</p> ",
+            "optional": true,
+            "field": "campaign.name",
+            "description": "<p>Human readable campaign name</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>Project</p> ",
+            "optional": true,
+            "field": "campaign.project",
+            "description": "<p>The parent project of this campaign</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>Node[]</p> ",
+            "optional": true,
+            "field": "campaign.graph",
+            "description": "<p>List of nodes, building a graph</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>String</p> ",
+            "allowedValues": [
+              "\"active\"",
+              "\"disabled\""
+            ],
+            "optional": true,
+            "field": "campaign.state",
+            "description": "<p>Current campaign state</p> "
+          }
+        ]
+      }
+    },
+    "error": {
+      "fields": {
+        "4xx": [
+          {
+            "group": "4xx",
+            "type": "<p>401</p> ",
+            "optional": false,
+            "field": "Unauthorized",
+            "description": "<p>Please login first</p> "
+          },
+          {
+            "group": "4xx",
+            "type": "<p>403</p> ",
+            "optional": false,
+            "field": "Forbidden",
+            "description": "<p>You don't have enough privileges</p> "
+          },
+          {
+            "group": "4xx",
+            "type": "<p>404</p> ",
+            "optional": false,
+            "field": "UserNotFound",
+            "description": "<p>User with ID does not exist</p> "
+          }
+        ],
+        "5xx": [
+          {
+            "group": "5xx",
+            "type": "<p>500</p> ",
+            "optional": false,
+            "field": "InternalServerError",
+            "description": "<p>Something went south</p> "
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "get",
+    "url": "/users/:id",
+    "title": "Request a single user",
+    "description": "<p>Returns a single object with user related fields. This endpoint is idempotent.</p> ",
+    "version": "0.0.1",
+    "name": "GetUser",
+    "group": "Users",
+    "parameter": {
+      "fields": {
+        "Params": [
+          {
+            "group": "Params",
+            "type": "<p>String</p> ",
+            "optional": false,
+            "field": "id",
+            "description": "<p>The unique user ID</p> "
+          }
+        ]
+      }
+    },
+    "permission": [
+      {
+        "name": "user",
+        "title": "Authenticated user access rights needed",
+        "description": "<p>Usually this role is reserved for customers</p> "
+      }
+    ],
+    "examples": [
+      {
+        "title": "C#",
+        "content": "Uri usersUri = new Uri(\"https://api.clustar.net/v1/users\");\nHTTPRequest request = new HTTPRequest(usersUri, HTTPMethods.Get, OnRequestFinished);\nrequest.Send();",
+        "type": "csharp"
+      },
+      {
+        "title": "CURL",
+        "content": "curl -i https://api.clustar.net/v1/users/1",
+        "type": "curl"
+      },
+      {
+        "title": "JavaScript",
+        "content": "fetch('https://api.clustar.net/v1/users/1')\n  .then((users) => {\n    users.data.forEach(function(user) {\n      console.log(user)\n    })\n  })\n  .catch(err => throw new Error(err))",
+        "type": "js"
+      }
+    ],
+    "filename": "src/routes/users.js",
+    "groupTitle": "Users",
+    "sampleRequest": [
+      {
+        "url": "https://api.clustar.net/v1/users/:id"
+      }
+    ],
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "<p>Object</p> ",
+            "optional": false,
+            "field": "user",
+            "description": "<p>The user object</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>String</p> ",
+            "optional": true,
+            "field": "user.id",
+            "description": "<p>Users unique ID</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>String</p> ",
+            "optional": true,
+            "field": "user.email",
+            "description": "<p>The email address of the user</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>String</p> ",
+            "optional": true,
+            "field": "user.password",
+            "description": "<p>The encrypted password</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>String</p> ",
+            "optional": true,
+            "field": "user.role",
+            "description": "<p>The user role (used for ACL checks)</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>String</p> ",
+            "optional": true,
+            "field": "user.campaigns",
+            "description": "<p>Available campaigns for this user</p> "
+          }
+        ]
+      }
+    },
+    "error": {
+      "fields": {
+        "4xx": [
+          {
+            "group": "4xx",
+            "type": "<p>401</p> ",
+            "optional": false,
+            "field": "Unauthorized",
+            "description": "<p>Please login first</p> "
+          },
+          {
+            "group": "4xx",
+            "type": "<p>403</p> ",
+            "optional": false,
+            "field": "Forbidden",
+            "description": "<p>You don't have enough privileges</p> "
+          },
+          {
+            "group": "4xx",
+            "type": "<p>404</p> ",
+            "optional": false,
+            "field": "UserNotFound",
+            "description": "<p>User with ID does not exist</p> "
+          }
+        ],
+        "5xx": [
+          {
+            "group": "5xx",
+            "type": "<p>500</p> ",
+            "optional": false,
+            "field": "InternalServerError",
+            "description": "<p>Something went south</p> "
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "get",
+    "url": "/users",
+    "title": "Request list of users",
+    "description": "<p>Returns a list of user objects. This endpoint is idempotent.</p> ",
+    "version": "0.0.1",
+    "name": "GetUsers",
+    "group": "Users",
+    "permission": [
+      {
+        "name": "admin",
+        "title": "Admin access rights needed",
+        "description": "<p>Admins are all users which have superpower</p> "
+      }
+    ],
+    "examples": [
+      {
+        "title": "CURL",
+        "content": "curl -i https://api.clustar.net/v1/users",
+        "type": "curl"
+      },
+      {
+        "title": "JavaScript",
+        "content": "fetch('https://api.clustar.net/v1/users')\n  .then(function() {…})\n  .catch(function() {…})",
+        "type": "js"
+      }
+    ],
+    "filename": "src/routes/users.js",
+    "groupTitle": "Users",
+    "sampleRequest": [
+      {
+        "url": "https://api.clustar.net/v1/users"
+      }
+    ],
+    "parameter": {
+      "fields": {
+        "Query": [
+          {
+            "group": "Query",
+            "type": "<p>String</p> ",
+            "optional": false,
+            "field": "filter",
+            "description": "<p><code>?filter=name LK 'hannes'</code></p> "
+          },
+          {
+            "group": "Query",
+            "type": "<p>String</p> ",
+            "optional": false,
+            "field": "expand",
+            "description": "<p><code>?expand=graph</code></p> "
+          },
+          {
+            "group": "Query",
+            "type": "<p>Number</p> ",
+            "optional": false,
+            "field": "limit",
+            "description": "<p><code>?limit=10</code></p> "
+          },
+          {
+            "group": "Query",
+            "type": "<p>Number</p> ",
+            "optional": false,
+            "field": "offset",
+            "description": "<p><code>?offset=10</code></p> "
+          },
+          {
+            "group": "Query",
+            "type": "<p>String</p> ",
+            "optional": false,
+            "field": "sort",
+            "description": "<p><code>?sort=_id</code></p> "
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "<p>Object[]</p> ",
+            "optional": false,
+            "field": "users",
+            "description": "<p>List of users</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>String</p> ",
+            "optional": true,
+            "field": "users.id",
+            "description": "<p>Users unique ID</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>String</p> ",
+            "optional": true,
+            "field": "users.email",
+            "description": "<p>The email address of the user</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>String</p> ",
+            "optional": true,
+            "field": "users.password",
+            "description": "<p>The encrypted password</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>String</p> ",
+            "optional": true,
+            "field": "users.role",
+            "description": "<p>The user role (used for ACL checks)</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>String</p> ",
+            "optional": true,
+            "field": "users.campaigns",
+            "description": "<p>Available campaigns for this user</p> "
+          }
+        ]
+      }
+    },
+    "error": {
+      "fields": {
+        "4xx": [
+          {
+            "group": "4xx",
+            "type": "<p>401</p> ",
+            "optional": false,
+            "field": "Unauthorized",
+            "description": "<p>Please login first</p> "
+          },
+          {
+            "group": "4xx",
+            "type": "<p>403</p> ",
+            "optional": false,
+            "field": "Forbidden",
+            "description": "<p>You don't have enough privileges</p> "
+          },
+          {
+            "group": "4xx",
+            "type": "<p>404</p> ",
+            "optional": false,
+            "field": "UserNotFound",
+            "description": "<p>User with ID does not exist</p> "
+          }
+        ],
+        "5xx": [
+          {
+            "group": "5xx",
+            "type": "<p>500</p> ",
+            "optional": false,
+            "field": "InternalServerError",
+            "description": "<p>Something went south</p> "
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "put",
+    "url": "/users/:id",
+    "title": "Create or modify a single user",
+    "description": "<p>You can either use this to create a user with a specific ID or to update fields for an existing user.</p> ",
+    "version": "0.0.1",
+    "name": "SaveUser",
+    "group": "Users",
+    "permission": [
+      {
+        "name": "user",
+        "title": "Authenticated user access rights needed",
+        "description": "<p>Usually this role is reserved for customers</p> "
+      }
+    ],
+    "parameter": {
+      "fields": {
+        "Params": [
+          {
+            "group": "Params",
+            "type": "<p>String</p> ",
+            "optional": false,
+            "field": "id",
+            "description": "<p>The unique user ID</p> "
+          }
+        ]
+      }
+    },
+    "examples": [
+      {
+        "title": "C#",
+        "content": "Uri usersUri = new Uri(\"https://api.clustar.net/v1/users\");\nHTTPRequest request = new HTTPRequest(usersUri, HTTPMethods.Put, OnRequestFinished);\nrequest.Send();",
+        "type": "csharp"
+      },
+      {
+        "title": "CURL",
+        "content": "curl -X PUT -d email=newmail@domain.tld -i https://api.clustar.net/v1/users/1",
+        "type": "curl"
+      },
+      {
+        "title": "JavaScript",
+        "content": "fetch(\n  'https://api.clustar.net/v1/users/1',\n  {\n    method: 'put',\n    body: new FormData(form)\n  }\n)\n  .then((user) => {\n    console.log(user)\n  })\n  .catch(err => throw new Error(err))",
+        "type": "js"
+      }
+    ],
+    "filename": "src/routes/users.js",
+    "groupTitle": "Users",
+    "sampleRequest": [
+      {
+        "url": "https://api.clustar.net/v1/users/:id"
+      }
+    ],
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "<p>Object</p> ",
+            "optional": false,
+            "field": "user",
+            "description": "<p>The user object</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>String</p> ",
+            "optional": true,
+            "field": "user.id",
+            "description": "<p>Users unique ID</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>String</p> ",
+            "optional": true,
+            "field": "user.email",
+            "description": "<p>The email address of the user</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>String</p> ",
+            "optional": true,
+            "field": "user.password",
+            "description": "<p>The encrypted password</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>String</p> ",
+            "optional": true,
+            "field": "user.role",
+            "description": "<p>The user role (used for ACL checks)</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>String</p> ",
+            "optional": true,
+            "field": "user.campaigns",
+            "description": "<p>Available campaigns for this user</p> "
+          }
+        ]
+      }
+    },
+    "error": {
+      "fields": {
+        "4xx": [
+          {
+            "group": "4xx",
+            "type": "<p>401</p> ",
+            "optional": false,
+            "field": "Unauthorized",
+            "description": "<p>Please login first</p> "
+          },
+          {
+            "group": "4xx",
+            "type": "<p>403</p> ",
+            "optional": false,
+            "field": "Forbidden",
+            "description": "<p>You don't have enough privileges</p> "
+          },
+          {
+            "group": "4xx",
+            "type": "<p>404</p> ",
+            "optional": false,
+            "field": "UserNotFound",
+            "description": "<p>User with ID does not exist</p> "
+          }
+        ],
+        "5xx": [
+          {
+            "group": "5xx",
+            "type": "<p>500</p> ",
+            "optional": false,
+            "field": "InternalServerError",
+            "description": "<p>Something went south</p> "
+          }
+        ]
+      }
+    }
+  }
+]

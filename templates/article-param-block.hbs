@@ -16,6 +16,7 @@
           <tbody>
           {{#each this}}
               <tr>
+                  {{optional}}
                   <td class="code">{{{splitFill field "." "&nbsp;&nbsp;"}}}{{#if optional}}
                       <span class="label label-optional">{{__ "optional"}}</span>{{/if}}
                   </td>

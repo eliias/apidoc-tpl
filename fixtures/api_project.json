@@ -1,0 +1,34 @@
+{
+  "name": "clustar API",
+  "version": "1.0.0",
+  "description": "The clustar API provides a public interface to all data.",
+  "title": "clustar API",
+  "url": "https://api.clustar.net/v1",
+  "sampleUrl": "https://api.clustar.net/v1",
+  "header": {
+    "title": "Introduction",
+    "content": "<blockquote>\n<p>The following introduction shows you how you should read and use this doc.</p>\n</blockquote>\n<p><a href=\"https://jenkins.dovigo.org/view/clustar/job/clustar-api/\"><img src=\"https://jenkins.dovigo.org/buildStatus/icon?job=clustar-api\" alt=\"Build Status\"></a></p>\n<h2>Auth</h2>\n<p>You can use <em>Basic Auth</em> to identify yourself against the API.\nThe API accepts a combination of <em>email</em> and <em>password</em> as user credential.</p>\n<pre><code class=\"language-http\">Authorization: Basic QWxhZGRpbjpvcGVuIHNlc2FtZQ==\n</code></pre>\n<p>An example JavaScript request might look like this.</p>\n<pre><code class=\"language-javascript\">request(app)\n  .get('/v1/users')\n  .auth(user.email, user.password)\n  .set('Accept', 'application/vnd.api+json')\n  .expect(200)\n  .end(function(err, res) {…}\n</code></pre>\n<h2>Response format</h2>\n<p>The API use the <a href=\"http://jsonapi.org/\">json:api</a> response format. The MIME type\nfor the response is <code>application/vnd.api+json</code>.</p>\n<pre><code class=\"language-javascript\">{\n  &quot;links&quot;: {\n    &quot;self&quot;: &quot;https://api.clustar.net/v1/users?page=1&quot;\n  },\n  &quot;data&quot;: [\n    {\n      &quot;id&quot;: &quot;5532ea138a782b539404f7e1&quot;,\n      &quot;email&quot;: &quot;hannes@domain.tld&quot;\n    }\n  ]\n}\n</code></pre>\n<hr>\n<h2>HTTP Verbs</h2>\n<p>The API follows REST principals to fetch documents. Every resource has a\nunique name (plural naming pattern for paths) and an identifier.</p>\n<table>\n<thead>\n<tr>\n<th style=\"text-align:right\">Verb</th>\n<th>Endpoint</th>\n<th>Action</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td style=\"text-align:right\"><code>GET</code></td>\n<td><em>/documents/:id</em></td>\n<td>fetch a single document</td>\n</tr>\n<tr>\n<td style=\"text-align:right\"><code>GET</code></td>\n<td><em>/documents</em></td>\n<td>fetch all documents from endpoint</td>\n</tr>\n<tr>\n<td style=\"text-align:right\"><code>POST</code></td>\n<td><em>/documents</em></td>\n<td>create a new document</td>\n</tr>\n<tr>\n<td style=\"text-align:right\"><code>PUT</code></td>\n<td><em>/documents/:id</em></td>\n<td>update an existing document</td>\n</tr>\n<tr>\n<td style=\"text-align:right\"><code>DELETE</code></td>\n<td><em>/documents/:id</em></td>\n<td>delete a specific document</td>\n</tr>\n</tbody>\n</table>\n<h3>Example</h3>\n<pre><code class=\"language-bash\"># Get user\nGET /users/:id\n\n# Get all users\nGET /users\n</code></pre>\n<h2>ACL (Access Control List)</h2>\n<p>Authorized users and guests might see different response data, depending on the\nuser's role within the system. For example, a guest is not able to see any user\ndata. The ACL system is defined as follows:</p>\n<pre><code class=\"language-javascript\">{\n  &quot;resource&quot;: {\n    &quot;ALLOW&quot;: {\n      &quot;ADMIN&quot;: &quot;CRUD&quot;,\n      &quot;USER&quot;: &quot;R&quot;,\n      &quot;GUEST&quot;: &quot;R&quot;\n    }\n  },\n  &quot;fields&quot;: {\n    &quot;_id&quot;: {\n      &quot;ALLOW&quot;: {\n        &quot;USER&quot;: &quot;R&quot;,\n        &quot;GUEST&quot;: &quot;R&quot;\n      }\n    },\n    &quot;email&quot;: {\n      &quot;ALLOW&quot;: {\n        &quot;OWNER&quot;: &quot;R&quot;\n      }\n    },\n    &quot;password&quot;: {\n      &quot;ALLOW&quot;: {\n        &quot;OWNER&quot;: &quot;U&quot;\n      }\n    },\n    &quot;campaigns&quot;: {\n      &quot;ALLOW&quot;: {\n        &quot;OWNER&quot;: &quot;R&quot;\n      }\n    },\n    &quot;role&quot;: {\n      &quot;ALLOW&quot;: {\n        &quot;ADMIN&quot;: &quot;CRUD&quot;\n      }\n    }\n  }\n}\n\n</code></pre>\n<p>As you can see there are two different types of privilege sets. Resource-centric\nprivileges apply to <strong><a href=\"http://en.wikipedia.org/wiki/Create,_read,_update_and_delete\">CRUD</a></strong>\noperations (e.g. <code>PUT</code> ↠ <em>update resource</em>).\nField-centric privileges allows fine grained control over resource fields.\nYou might expose the email address of a user just to the owner of the resource.</p>\n<h2>Query</h2>\n<h3>expand</h3>\n<p>You can populate one or more fields of a resource object by adding the expand\nparameter to the request URL.</p>\n<pre><code class=\"language-bash\">GET /campaigns?expand=graph\n</code></pre>\n<pre><code class=\"language-bash\">GET /campaigns?expand=graph,project\n</code></pre>\n<h3>pagination</h3>\n<p>You can limit and modify the cursfor for resultsets by adding a <em>limit</em> and/or\n<em>offset</em> parameter to the request URL.</p>\n<pre><code class=\"language-bash\">GET /campaigns?limit=5\n</code></pre>\n<pre><code class=\"language-bash\">GET /campaigns?limit=5&amp;offset=5\n</code></pre>\n<h3>sort</h3>\n<p>The order of resultsets can be modified. You can also have combined orders for\ndifferent fields.</p>\n<pre><code class=\"language-bash\">GET /campaigns?sort=-_id\n</code></pre>\n<pre><code class=\"language-bash\">GET /campaigns?sort=+project,-modified\n</code></pre>\n<h3>filter</h3>\n<p>The API provides a powerful filter system. You can use logical expressions to\nmodify or limit resultsets. This is a useful feature for creating reports.</p>\n<pre><code class=\"language-bash\"># Get all users where content of email field starts with 'hannes@'\nGET /users?filter=email LK 'hannes@'\n</code></pre>\n<pre><code class=\"language-bash\"># Get all users where content of email field starts with 'hannes@'\n# The user also must have been modified within given timestamp\nGET /users?filter=email LK 'hannes@' AND modified GTE 1433014240\n</code></pre>\n"
+  },
+  "footer": {
+    "title": "About",
+    "content": "<h4>Polycular 2015</h4>\n"
+  },
+  "order": [
+    "Docs",
+    "Clients",
+    "Users",
+    "User_Campaigns",
+    "Projects",
+    "Campaigns",
+    "Graphs",
+    "Nodes",
+    "ACL"
+  ],
+  "apidoc": "0.2.0",
+  "generator": {
+    "name": "apidoc",
+    "time": "2015-06-02T11:44:18.879Z",
+    "url": "http://apidocjs.com",
+    "version": "0.13.1"
+  }
+}
