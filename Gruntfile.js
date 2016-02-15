@@ -75,14 +75,12 @@ module.exports = function(grunt) {
     browserify: {
       watch: {
         files: {
-          '<%= config.dist %>/scripts/main.js': [
-            '<%= config.src %>/scripts/main.js'
-          ]
+          '<%= config.dist %>/scripts/main.js': '<%= config.src %>/scripts/main.js'
         },
         options: {
           watch: true,
           transform: [
-            [{stage: 1}, 'babelify']
+            ['babelify']
           ],
           browserifyOptions: {
             debug: true,
@@ -99,7 +97,7 @@ module.exports = function(grunt) {
         },
         options: {
           transform: [
-            [{stage: 1}, 'babelify'], [{global: true}, 'uglifyify']
+            ['babelify']
           ],
           browserifyOptions: {
             debug: false,

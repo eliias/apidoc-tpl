@@ -1,4 +1,5 @@
 import $ from 'jquery'
+import moment from 'moment'
 import Handlebars from 'hbsfy/runtime'
 import articleCompareParamBlock from '../templates/article-compare-param-block.hbs'
 import articleCompareParamBlockBody from '../templates/article-compare-param-block-body.hbs'
@@ -32,6 +33,11 @@ Handlebars.registerHelper('startTimer', function(text) {
 Handlebars.registerHelper('stopTimer', function(text) {
   console.log(new Date() - timer)
   return ''
+})
+
+Handlebars.registerHelper('dateFormat', function(context, block) {
+  var f = block.hash.format || "MMM Do, YYYY";
+  return moment(Date(context)).format(f)
 })
 
 /**

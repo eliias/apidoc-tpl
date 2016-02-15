@@ -1,7 +1,8 @@
 {{#if template.withGenerator}}
   {{#if generator}}
-      <div class="content">
-        {{__ "Generated with"}} <a href="{{{generator.url}}}">{{{generator.name}}}</a> {{{generator.version}}} - {{{generator.time}}}
-      </div>
+    <div class="content">
+      {{__ "Generated with"}}
+      <a href="{{{generator.url}}}">{{{generator.name}}}</a> {{{generator.version}}} - {{{dateFormat generator.time format="Do MMM, YYYY"}}}
+    </div>
   {{/if}}
 {{/if}}

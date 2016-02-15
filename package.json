@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/eliias/apidoc-tpl",
   "devDependencies": {
+    "babel-preset-es2015-node5": "^1.1.2",
     "babelify": "^7.2.0",
     "bootstrap": "^3.3.4",
     "browserify": "^13.0.0",
@@ -42,6 +43,7 @@
     "less-plugin-clean-css": "^1.5.0",
     "load-grunt-tasks": "^3.1.0",
     "lodash": "^4.3.0",
+    "moment": "^2.11.2",
     "time-grunt": "^1.1.1",
     "uglifyify": "^3.0.1"
   },
