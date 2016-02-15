@@ -1,7 +1,7 @@
 <section id="api-{{group}}">
   {{#each articles}}
       <div id="api-{{group}}-{{name}}" class="row">
-          <div class="col-sm-6">
+          <div class="col-lg-6 col-sm-12 col-xs-12">
             {{#if_eq @index compare=0}}
                 <h1>{{underscoreToSpace ../../title}}</h1>
             {{/if_eq}}
@@ -10,7 +10,7 @@
             {{/if}}
             {{{article}}}
           </div>
-          <div class="col-sm-6 example">
+          <div class="col-lg-6 hidden-md hidden-sm hidden-xs hid example">
             {{{example}}}
           </div>
       </div>

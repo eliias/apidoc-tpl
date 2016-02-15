@@ -2,17 +2,17 @@
   <h2>
     {{#if article.title}}{{article.title}}{{/if}}
     {{#if template.withCompare}}
-        <div class="btn-group pull-right">
-            <button class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown">
-                <strong>{{article.version}}</strong> <span class="caret"></span>
-            </button>
-            <ul class="versions dropdown-menu open-left">
-                <li class="disabled"><a href="#">{{__ "compare changes to:"}}</a></li>
-              {{#each versions}}
-                  <li class="version"><a href="#">{{this}}</a></li>
-              {{/each}}
-            </ul>
-        </div>
+      <div class="btn-group pull-right">
+        <button class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown">
+          <strong>{{article.version}}</strong> <span class="caret"></span>
+        </button>
+        <ul class="versions dropdown-menu open-left">
+          <li class="disabled"><a href="#">{{__ "compare changes to:"}}</a></li>
+          {{#each versions}}
+            <li class="version"><a href="#">{{this}}</a></li>
+          {{/each}}
+        </ul>
+      </div>
     {{/if}}
   </h2>
 
@@ -34,7 +34,7 @@
       {{#each article.permission}}
         {{name}}
         {{#if title}}
-            &nbsp;<a href="#" data-toggle="popover" data-placement="right" data-html="true" data-content="{{nl2br description}}" title="" data-original-title="{{title}}"><span class="label label-info"><span class="glyphicon glyphicon-info-sign"></span></span></a>
+          &nbsp;<a href="#" data-toggle="popover" data-placement="right" data-html="true" data-content="{{nl2br description}}" title="" data-original-title="{{title}}"><span class="label label-info"><span class="glyphicon glyphicon-info-sign"></span></span></a>
           {{#unless @last}}, {{/unless}}
         {{/if}}
       {{/each}}

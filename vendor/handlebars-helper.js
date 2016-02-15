@@ -37,7 +37,7 @@ Handlebars.registerHelper('stopTimer', function(text) {
 
 Handlebars.registerHelper('dateFormat', function(context, block) {
   var f = block.hash.format || "MMM Do, YYYY";
-  return moment(Date(context)).format(f)
+  return moment(context).format(f)
 })
 
 /**

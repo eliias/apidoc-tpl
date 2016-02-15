@@ -1,7 +1,3 @@
-body {
-  min-width: 980px;
-}
-
 .row {
   overflow: hidden;
 }
@@ -94,6 +90,12 @@ td.code {
   z-Index: -1;
   padding-top: 16px;
   margin-left: 280px;
+}
+
+@media (max-width: @screen-sm-min) {
+  #content {
+    margin-left: 0;
+  }
 }
 
 h1 {
@@ -228,6 +230,12 @@ article h4 {
   background-color: #fafafa;
   border-right: 1px solid #eee;
   z-index: 10;
+}
+
+@media (max-width: @screen-sm-min) {
+  .sidenav {
+    display: none;
+  }
 }
 
 .sidenav > li > a {
