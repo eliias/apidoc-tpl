@@ -301,7 +301,7 @@ function init() {
   function _hasTypeInFields(fields) {
     let result = false
     $.each(fields, function(name) {
-      if (_.any(fields[name], function(item) {
+      if (_.some(fields[name], function(item) {
           return item.type
         })) {
         result = true
