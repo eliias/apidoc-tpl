@@ -66,6 +66,15 @@ td {
   }
 }
 
+.http-method-patch {
+  .form-control-validation(@state-warning-text; @state-warning-bg; @state-warning-bg);
+  .input-group {
+    input[disabled] {
+      background-color: lighten(@state-warning-bg, 45%);
+    }
+  }
+}
+
 .http-method-delete {
   .form-control-validation(@state-danger-text; @state-danger-bg; @state-danger-bg);
   .input-group {
@@ -100,10 +109,9 @@ td.code {
 
 h1 {
   font-family: "Source Sans Pro Semibold", sans-serif;
-  font-weight: bold;
   font-size: 36px;
-  line-height: 50px;
-  margin: 0 0 10px 0;
+  line-height: 40px;
+  margin: 0;
   padding: 0;
 }
 
@@ -114,6 +122,12 @@ h2 {
   line-height: 40px;
   margin: 0;
   padding: 0;
+
+  &.description {
+    font-size: 16px;
+    line-height: 24px;
+    margin: 0 0 10px 0;
+  }
 }
 
 section {
