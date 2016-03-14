@@ -34,7 +34,7 @@
     "grunt-contrib-copy": "^1.0.0",
     "grunt-contrib-jshint": "^1.0.0",
     "grunt-contrib-less": "^1.0.1",
-    "grunt-contrib-watch": "^0.6.1",
+    "grunt-contrib-watch": "^1.0.0",
     "handlebars": "^4.0.5",
     "hbsfy": "^2.5.1",
     "jquery": "^2.2.1",
