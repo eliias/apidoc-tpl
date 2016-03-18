@@ -30,6 +30,7 @@ pre[class*="language-"] {
 pre[class*="language-"] {
 	position: relative;
 	margin: .5em 0;
+  padding: 0;
 	-webkit-box-shadow: -1px 0px 0px 0px #358ccb, 0px 0px 0px 1px #dfdfdf;
 	-moz-box-shadow: -1px 0px 0px 0px #358ccb, 0px 0px 0px 1px #dfdfdf;
 	box-shadow: -1px 0px 0px 0px #358ccb, 0px 0px 0px 1px #dfdfdf;
