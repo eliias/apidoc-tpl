@@ -36,7 +36,7 @@
     "grunt-contrib-less": "^1.0.1",
     "grunt-contrib-watch": "^1.0.0",
     "handlebars": "^4.0.5",
-    "hbsfy": "^2.5.1",
+    "hbsfy": "^2.7.0",
     "jquery": "^3.0.0",
     "jshint-stylish": "^2.2.0",
     "less-plugin-autoprefix": "^1.5.1",
