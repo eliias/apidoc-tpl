@@ -43,7 +43,7 @@
     "less-plugin-clean-css": "^1.5.0",
     "load-grunt-tasks": "^3.5.2",
     "lodash": "^4.16.5",
-    "moment": "^2.15.1",
+    "moment": "^2.16.0",
     "time-grunt": "^1.4.0",
     "uglifyify": "^3.0.4"
   },
